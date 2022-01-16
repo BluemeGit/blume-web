@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Home from './pages/home/index.tsx';
 import Products from './pages/products/index.tsx';
 import reportWebVitals from './reportWebVitals';
+import './index.css';
 import {
   Routes,
   Route,

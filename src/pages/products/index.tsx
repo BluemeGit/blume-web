@@ -1,7 +1,16 @@
+
+import styled from '@emotion/styled';
 import React from 'react';
 
 export default function Products () {
     return (
-        <div></div>
+        <Container>
+
+        </Container>
     );
 }
+
+const Container = styled.div`
+
+`;
+
