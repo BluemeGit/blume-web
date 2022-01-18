@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import IconLogo from '../../assets/header/icon-logo.png';
+
 export default function Header () {
     return (
         <HeaderContainer>
@@ -13,6 +14,7 @@ export default function Header () {
 
 const HeaderContainer = styled.header`
     position: fixed;
+    z-index: 999;
     background: #FFFFFF;
     
     display: flex;
