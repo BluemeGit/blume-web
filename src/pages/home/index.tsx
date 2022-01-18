@@ -4,6 +4,8 @@ import Header from '../../components/common/Header';
 import ReactPlayer from 'react-player/youtube'
 import ImageSeacrh from '../../assets/home/image-search.png';
 import IconMae from '../../assets/common/icon-mae.png';
+import ProductBox from '../../components/products/ProductBox';
+import Footer from '../../components/common/Footer';
 export default function Home () {
     const onSearch = () => {
         alert('아직 검색 서비스가 준비되지 않았습니다.');
@@ -22,6 +24,16 @@ export default function Home () {
             </PageContainer>
             <PageContainer backgroundColor={'#F7FFF9'}>
                 <Title>{'무의미하던 성분표기\n'}<BoldGreen>해석</BoldGreen>{'해서 의미를 만듭니다'}</Title>
+                <ProductContainer>
+                    <ProductBox/>
+                    <ProductBox/>
+                    <ProductBox/>
+                    <ProductBox/>
+                    {/* <ProductBox/>
+                    <ProductBox/>
+                    <ProductBox/>
+                    <ProductBox/> */}
+                </ProductContainer>
                 <Content>{'읽기조차 힘든 성분표기,\n기준도 명확치 않아 같은 성분을 업체마다 다르게 표기합니다.\n우린 알 수 없었기에 마케팅에 휘둘렸고, 업체는 제품보다 마케팅에 집중합니다.\n\n우리가 알아야 시장이 변화합니다.\n세잎이 해석하겠습니다.'}</Content>
             </PageContainer>
             <PageContainer>
@@ -34,6 +46,7 @@ export default function Home () {
                 <img src={IconMae} alt='세잎이'/>
                 <Button onClick={onAppDownload}>세잎 앱 다운로드</Button>
             </PageContainer>
+            <Footer/>
         </Container>
     );
 }
@@ -58,6 +71,13 @@ const PageContainer = styled.div<{backgroundColor?: string}>`
     & > *:last-child {
         padding-bottom: 0px;
     }
+`;
+const ProductContainer = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    
+    width: 1200px;
+    grid-gap: 30px;
 `;
 const Title = styled.h4`
     font-size: 46px;

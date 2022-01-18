@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './pages/home/index.tsx';
 import Products from './pages/products/index.tsx';
+import Product from './pages/products/[id]/index.tsx'
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import {
@@ -14,7 +15,8 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/product' element={<Products />}/>
+        <Route path='/products' element={<Products />}/>
+        <Route path='/products/:id' element={<Product />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
