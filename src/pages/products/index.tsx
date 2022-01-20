@@ -34,21 +34,28 @@ export default function Products () {
     
     const { data: products, error: productError } = useSWR(`/product/search?query=${debounceQuery}`, fetcher);
     const { data: ads, error: adError } = useSWR('/product/ads', fetcher);
-
+    
     if (productError || adError) return <div>error!</div>
-    if (!ads) return <div>loading...</div>
+    
 
     
     return (
         <Container>
             <MobileHeader/>
             <Search {...query} placeholder={'사용하고 계신 제품명을 검색해보세요!'}/>
-            {products &&
+            {products && ads &&
                 <ProductContainer>
                     {products.data.map((product: ProductType, id: number) => 
                         <>
-                            <Product imageLink={product.imageUrl} id={product.id} title={product.name} content={product.description}/>
-                            {id % 4 === 3 && <AdvertiseBox src={ads.data[Math.floor(id / 4) % ads.data.length].ImageURL}/>}
+                            <Product
+                                imageLink={product.imageUrl}
+                                id={product.id}
+                                title={product.name}
+                                content={product.description}
+                            />
+                            {id % 4 === 3 && 
+                                <AdvertiseBox src={ads.data[Math.floor(id / 4) % ads.data.length].ImageURL}/>
+                            }
                         </>
                     )}
                 </ProductContainer>

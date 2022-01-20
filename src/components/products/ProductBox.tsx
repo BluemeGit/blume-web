@@ -1,9 +1,13 @@
 import styled from '@emotion/styled';
 import React from 'react';
+type ProductBoxType = {
+    imageLink: string
+}
+export default function ProductBox({ imageLink }: ProductBoxType) {
 
-export default function ProductBox() {
     return (
         <Container>
+            <Image src={imageLink}/>
             <Button>{'전 성분 해석보기'}</Button>
         </Container>
     );
@@ -24,6 +28,11 @@ const Container = styled.div`
             background: #E7E7E7;
         }
     }
+`;
+const Image = styled.img`
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
 `;
 const Button = styled.button`
     position: absolute;
