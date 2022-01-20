@@ -5,8 +5,8 @@ export default function Footer () {
         <FooterContainer>
             <FooterWrapper>
                 <Intro>
-                    <b>회사명</b>{'\t\t\t메에컴퍼니'}{'\n'}
-                    <b>주소</b>{'\t\t\t서울특별시 동작구 상도로55길 8-3 365, 스테이션 202호'}{'\n'}
+                    <b>회사명</b>{'\t\t\t메에컴퍼니(maeee company)'}{'\n'}
+                    <b>주소</b>{'\t\t\t서울특별시 동작구 상도로55길 8-3, 2층 365스테이션(상도동) 스테이션 202호'}{'\n'}
                     <b>대표명</b>{'\t\t\t김성우'}{'\n'}
                     <b>사업자등록번호</b>{'\t144-23-01384'}{'\n'}
                 </Intro>
