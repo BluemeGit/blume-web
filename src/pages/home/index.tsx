@@ -22,7 +22,6 @@ export default function Home () {
         alert('아직 앱 서비스가 준비되지 않았습니다.');
     }
     const scrollToDownload = () => {
-
         if (DownloadRef.current)
             DownloadRef.current?.scrollIntoView({behavior: 'smooth'});
     }
@@ -32,7 +31,7 @@ export default function Home () {
             <Header></Header>
             <PageContainer>
                 <Title>{'‘나’의 2405일,\n그 이상을 위한 검색'}</Title>
-                <img onClick={scrollToDownload} src={ImageSeacrh} alt={'상품 검색'}/>
+                <Image onClick={scrollToDownload} src={ImageSeacrh} alt={'상품 검색'}/>
                 <Content>{'나는\n일생의 2405일 동안 15000개의 생리대를 씁니다.\n그 시간과 개수들은 내 평생의 삶과 직결됩니다.\n\n그런데 나는 왜.\n모르고 쓰고 있었을까요?'}</Content>
             </PageContainer>
             <PageContainer backgroundColor={'#F7FFF9'}>
@@ -52,7 +51,7 @@ export default function Home () {
             </PageContainer>
             <PageContainer backgroundColor={'#F7FFF9'} ref={DownloadRef}>
                 <Title>{'2022년 1월,\n세잎 앱 서비스 출시 예정'}</Title>
-                <img src={IconMae} alt='세잎이'/>
+                <Image src={IconMae} alt='세잎이'/>
                 <Button onClick={onAppDownload}>세잎 앱 다운로드</Button>
             </PageContainer>
             <Footer/>
@@ -115,4 +114,7 @@ const Button = styled.button`
     &:hover{
         background: #0DC043;
     }
+`;
+const Image = styled.img`
+
 `;
