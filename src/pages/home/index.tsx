@@ -14,7 +14,7 @@ import ProductImage3 from '../../assets/home/image_product_3.png';
 import ProductImage4 from '../../assets/home/image_product_4.png';
 
 import Aos from 'aos';
-import "@types/aos/dist/aos.css";
+import "aos/dist/aos.css";
 
 
 export default function Home () {
