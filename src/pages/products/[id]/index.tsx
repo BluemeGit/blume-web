@@ -21,8 +21,15 @@ export default function Product () {
     const navigate = useNavigate();
     const params = useParams();
     const [isWish, setIsWish] = useState<boolean>(false);
-
+    
     const { data, error } = useSWR(`/product/info/${params.id}`, fetcher);
+    useEffect(() => {
+        if (!data) return;
+        if (getWishs()?.split(',').includes(String(data.data.id))) {
+            setIsWish(true);
+        }
+    }, [data]);
+
     if (error) return <div>error!</div>
     if (!data) return <div>loading...</div>
     
@@ -37,13 +44,8 @@ export default function Product () {
     const onBack = () => {
         navigate(-1);
     }
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    // useEffect(() => {
-    //     if (!data) return;
-    //     if (getWishs()?.split(',').includes(data.data.id)) {
-    //         setIsWish(true);
-    //     }
-    // }, [data]);
+    
+   
     return (
         <Container>
             <Header>
