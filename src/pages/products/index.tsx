@@ -11,6 +11,7 @@ import { fetcher } from '../../fetch/fetcher';
 import useInput from '../../hooks/useInput';
 
 import IconSearch from '../../assets/product/icon-search.png';
+import { getWishs } from '../../utils/localstorage';
 type ProductType = {
     id: number,
     name: string,
@@ -25,7 +26,7 @@ export default function Products () {
     const query = useInput('');
     const [debounceQuery, setDebounceQuery] = useState<string>('');
     const [timer, setTimer] = useState<any>(undefined); // 디바운싱 타이머
-
+    const [isWish, setIsWish] = useState<boolean>(false);
     useEffect(() => {
         if (timer) {
             clearTimeout(timer);
@@ -48,11 +49,19 @@ export default function Products () {
             <MobileHeader/>
             <SearchContainer>
                 <SearchIcon src={IconSearch}/>
-                <Search {...query} placeholder={'사용하고 계신 제품명을 검색해보세요!'}/>
+                <Search {...query} placeholder={'사용하고 계신 제품 이름을 검색해보세요!'}/>
             </SearchContainer>
-            {products && ads &&
-                <ProductContainer>
-                    {products.data.map((product: ProductType, id: number) => 
+            <ToggleContainer>
+                <ToggleButton selected={!isWish} onClick={() => setIsWish(false)}>전체 제품</ToggleButton>
+                <ToggleButton selected={isWish} onClick={() => setIsWish(true)}>찜한 제품</ToggleButton>
+            </ToggleContainer>  
+            
+            <ProductContainer>
+                {products && ads && products.data.map((product: ProductType, id: number) => {
+                    if (isWish && !getWishs()?.includes(String(product.id))) {
+                        return <></>;
+                    }
+                    return (
                         <>
                             <Product
                                 imageLink={product.imageUrl}
@@ -64,9 +73,9 @@ export default function Products () {
                                 <AdvertiseBox src={ads.data[Math.floor(id / 4) % ads.data.length].ImageURL}/>
                             }
                         </>
-                    )}
-                </ProductContainer>
-            }       
+                    );
+                })}
+            </ProductContainer>  
         </Container>
     );
 }
@@ -90,10 +99,31 @@ const SearchIcon = styled.img`
     left: 16px;
     top: 10px;
 `;
+
+const ToggleContainer = styled.div`
+    border-top: 1px solid #F1F1F5;
+    width: 100vw;
+    height: 40px;
+`;
+const ToggleButton = styled.p<{selected?: boolean}>`
+    margin: 0;
+    line-height: 36px;
+    display: inline-block;
+    width: 50vw;
+    font-size: 13px;
+    text-align: center;
+    /* font-weight: ${(props) => props.selected ? 'bold' : '400'}; */
+    color: ${(props) => props.selected ? '#333333' : '#F1F1F5'};
+    border-bottom: 2px solid ${(props) => props.selected ? '#1ED154' : '#F1F1F5'};
+`;
 const ProductContainer = styled.div`
+    
     height: calc(100vh - 101px);
     overflow-y: auto;
 
     width: 100%;
-    border-top: 6px solid #F1F1F5;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 `
