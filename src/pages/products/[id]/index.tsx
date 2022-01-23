@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import IconBack from '../../../assets/header/icon-arrow-back.png';
@@ -7,6 +7,7 @@ import IconWishFill from '../../../assets/product/icon-wish-fill.png';
 import IconWishStroke from '../../../assets/product/icon-wish-stroke.png';
 import MaterialBox from '../../../components/products/materials/MaterialBox';
 import { fetcher } from '../../../fetch/fetcher';
+import { addWish, delWish, getWishs } from '../../../utils/localstorage';
 
 type MaterialType = {
     title: string,
@@ -26,16 +27,28 @@ export default function Product () {
     if (!data) return <div>loading...</div>
     
     const onToggleWish = () => {
+        if (isWish) {
+            delWish(data.data.id);
+        } else {
+            addWish(data.data.id);
+        }
         setIsWish(!isWish)
     }
     const onBack = () => {
         navigate(-1);
     }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    // useEffect(() => {
+    //     if (!data) return;
+    //     if (getWishs()?.split(',').includes(data.data.id)) {
+    //         setIsWish(true);
+    //     }
+    // }, [data]);
     return (
         <Container>
             <Header>
                 <BackButton src={IconBack} onClick={onBack}/>
-                <WishButton src={isWish ? IconWishStroke : IconWishFill} onClick={onToggleWish}/>
+                <WishButton src={isWish ? IconWishFill : IconWishStroke} onClick={onToggleWish}/>
             </Header>
             <ProductContainer>
                 <ProductImage src={'https://kr.object.ncloudstorage.com/blume/' + data.data.imageUrl}/>
