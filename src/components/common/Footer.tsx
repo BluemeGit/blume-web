@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { Link } from 'react-router-dom';
 export default function Footer () {
     return (
         <FooterContainer>
@@ -13,6 +14,11 @@ export default function Footer () {
                 <Intro>
                     <b>문의</b>{'\t\tmaeee@maeee.co.kr'}{'\n'}
                     <b></b>{'\t\t\tjming@maeee.co.kr'}{'\n'}
+                    
+                    
+                </Intro>
+                <Intro>
+                    <Link to={'/privacy'}>{'개인정보처리방침'}{'\n'}</Link>
                 </Intro>
             </FooterWrapper>
         </FooterContainer>
