@@ -54,7 +54,7 @@ export default function Product () {
             </Header>
             <ProductContainer>
                 <ProductImage src={'https://kr.object.ncloudstorage.com/blume/' + data.data.imageUrl}/>
-                <ProductTitle>{data.data.name}</ProductTitle>
+                <ProductTitle>{data.data.trans_name}</ProductTitle>
             </ProductContainer>
             <MaterialContainer>
                 <MaterialTitle>

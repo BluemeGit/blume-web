@@ -14,7 +14,7 @@ import IconSearch from '../../assets/product/icon-search.png';
 import { getWishs } from '../../utils/localstorage';
 type ProductType = {
     id: number,
-    name: string,
+    trans_name: string,
     description: string,
     imageUrl: string
 }
@@ -66,7 +66,7 @@ export default function Products () {
                             <Product
                                 imageLink={product.imageUrl}
                                 id={product.id}
-                                title={product.name}
+                                title={product.trans_name}
                                 content={product.description}
                             />
                             {id % 4 === 3 && 

@@ -45,7 +45,7 @@ const ProductImage = styled.img`
     height: 100px;
     width: 100px;
     object-fit: contain;
-    
+    padding: 8px;
 `;
 const ProductInfo = styled.div`
     margin-left: 20px;
