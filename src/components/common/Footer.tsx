@@ -1,7 +1,21 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import mobile from '../../recoil/mobile';
 export default function Footer () {
+    const isMobile = useRecoilValue(mobile);
+    
+    if (isMobile) {
+        return (
+            <MobileFooter>
+                <b>회사명 </b>{' 메에컴퍼니(maeee company)'}{'\n'}
+                <b>주소 </b>{' 서울특별시 동작구 상도로55길 8-3, 2층 365스테이션(상도동)'}{'\n'}
+                <b>대표명 </b>{' 김성우'}{'\n'}
+                <b>사업자등록번호 </b>{' 144-23-01384'}{'\n'}
+            </MobileFooter>
+        );
+    }
     return (
         <FooterContainer>
             <FooterWrapper>
@@ -25,6 +39,15 @@ export default function Footer () {
     );
 }
 
+const MobileFooter = styled.footer`
+    width: 100%;
+    height: 120px;
+    line-height: 20px;
+    font-size: 10px;
+    white-space: pre;
+    padding: 20px;
+    border-top: 1px solid #E7E7E7;
+`;
 const FooterContainer = styled.footer`
     display: flex;
     align-items: center;

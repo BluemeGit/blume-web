@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import IconLogo from '../../assets/header/icon-logo.png';
+import { useNavigate } from 'react-router-dom';
+import IconLogo from '../../assets/common/icon_logo.svg';
+import Image from './Image';
 
 export default function Header () {
+    const navigate = useNavigate();
     return (
         <HeaderContainer>
             <HeaderWrapper>
-                <img src={IconLogo} alt='세잎 로고'/>
+                <Image src={IconLogo} alt='세잎 로고' style={{ cursor: 'pointer'}} onClick={() => navigate('/')} height={'30px'}/>
             </HeaderWrapper>
         </HeaderContainer>
     )

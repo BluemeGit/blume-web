@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
-import IconBack from '../../../assets/header/icon-arrow-back.png';
+import IconBack from '../../../assets/common/icon_back.svg';
 import IconWishFill from '../../../assets/product/icon-wish-fill.png';
 import IconWishStroke from '../../../assets/product/icon-wish-stroke.png';
 import MaterialBox from '../../../components/products/materials/MaterialBox';

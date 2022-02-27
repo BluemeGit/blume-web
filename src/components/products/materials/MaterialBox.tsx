@@ -13,11 +13,11 @@ export default function MaterialBox ({
     const [isOpen, setIsOpen] = useState<boolean>(false);
     return (
         <Container>
-            <TitleContainer>
+            <TitleContainer onClick={() => setIsOpen(!isOpen)}>
                 <Title>
                     {title}
                 </Title>
-                <OpenButton src={isOpen ? IconArrowDown : IconArrowRight} onClick={() => setIsOpen(!isOpen)}/>
+                <OpenButton src={isOpen ? IconArrowDown : IconArrowRight}/>
             </TitleContainer>
             {isOpen &&
                 <Description>

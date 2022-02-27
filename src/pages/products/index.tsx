@@ -12,6 +12,7 @@ import useInput from '../../hooks/useInput';
 
 import IconSearch from '../../assets/product/icon-search.png';
 import { getWishs } from '../../utils/localstorage';
+import { useLocation } from 'react-router-dom';
 type ProductType = {
     id: number,
     trans_name: string,
@@ -27,7 +28,9 @@ export default function Products () {
     const [debounceQuery, setDebounceQuery] = useState<string>('');
     const [timer, setTimer] = useState<any>(undefined); // 디바운싱 타이머
     const [isWish, setIsWish] = useState<boolean>(false);
+    const location = useLocation();
     useEffect(() => {
+        
         if (timer) {
             clearTimeout(timer);
         }
@@ -36,7 +39,13 @@ export default function Products () {
         }, 800);
         setTimer(newTimer);
     }, [query.value]);
-    
+    useEffect(() => {
+        // Query String Setting
+        const queries = location.search.split('query=');
+        if (queries.length > 1) {
+            query.onChange(decodeURI(queries[1].split('&')[0]));
+        }
+    },[]);
     const { data: products, error: productError } = useSWR(`/product/search?query=${debounceQuery}`, fetcher);
     const { data: ads, error: adError } = useSWR('/product/ads', fetcher);
     

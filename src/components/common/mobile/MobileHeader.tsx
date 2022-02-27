@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import IconLogo from '../../../assets/header/icon-logo.png';
+import IconLogo from '../../../assets/common/icon_logo.svg';
+import { useNavigate } from 'react-router-dom';
 
 export default function MobileHeader () {
+    const navigate = useNavigate();
     return (
         <Header>
-            <img src={IconLogo} alt={'세잎'}/>
+            <img src={IconLogo} alt={'세잎'} style={{ cursor: 'pointer', height: '30px', objectFit: 'contain'}} onClick={() => navigate('/')}/>
         </Header>
     );
 }
@@ -19,6 +21,7 @@ const Header = styled.header`
     align-items: center;
     justify-content: space-between;
 
+    width: 100vw;
     padding: 10px 24px;
     border-bottom: 1px solid #E7E7E7;
 `;
