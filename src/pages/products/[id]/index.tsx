@@ -100,7 +100,7 @@ const Header = styled.header`
     border-bottom: 1px solid #E7E7E7;
 `;
 const BackButton = styled.img`
-    
+    height: 25px;
 `;
 const WishButton = styled.img`
 
