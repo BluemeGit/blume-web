@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import IconArrowDown from '../../../assets/material/icon-arrow-down.png';
 import IconArrowRight from '../../../assets/material/icon-arrow-right.png';
+import mobile from '../../../recoil/mobile';
 type MaterialBoxType = {
     title: string,
     description: string
@@ -11,21 +13,35 @@ export default function MaterialBox ({
     description
 }: MaterialBoxType) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const isMobile = useRecoilValue(mobile);
+    if (isMobile) {
+        return (
+            <Container>
+                <TitleContainer onClick={() => setIsOpen(!isOpen)}>
+                    <Title>
+                        {title}
+                    </Title>
+                    <OpenButton src={isOpen ? IconArrowDown : IconArrowRight}/>
+                </TitleContainer>
+                {isOpen &&
+                    <Description>
+                        {description}
+                    </Description>
+                }
+            </Container>
+        )
+    }
     return (
-        <Container>
-            <TitleContainer onClick={() => setIsOpen(!isOpen)}>
-                <Title>
-                    {title}
-                </Title>
+        <div onClick={() => setIsOpen(!isOpen)} style={{ cursor: 'pointer' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                <p style={{ fontSize: '16px', fontWeight: 'bold'}}>{title}</p>
                 <OpenButton src={isOpen ? IconArrowDown : IconArrowRight}/>
-            </TitleContainer>
+            </div>
             {isOpen &&
-                <Description>
-                    {description}
-                </Description>
+                <p style={{ fontSize: '16px', color: '#333' }}>{description}</p>
             }
-        </Container>
-    )
+        </div>
+    );
 }
 
 const Container = styled.div`
