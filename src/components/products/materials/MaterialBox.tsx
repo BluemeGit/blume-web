@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { prependListener } from 'process';
 import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import IconArrowDown from '../../../assets/material/icon-arrow-down.png';
@@ -32,13 +33,13 @@ export default function MaterialBox ({
         )
     }
     return (
-        <div onClick={() => setIsOpen(!isOpen)} style={{ cursor: 'pointer' }}>
+        <div onClick={() => setIsOpen(!isOpen)} style={{ cursor: 'pointer' , whiteSpace:'pre-line'}}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                 <p style={{ fontSize: '16px', fontWeight: 'bold'}}>{title}</p>
                 <OpenButton src={isOpen ? IconArrowDown : IconArrowRight}/>
             </div>
             {isOpen &&
-                <p style={{ fontSize: '16px', color: '#333' }}>{description}</p>
+                <p style={{ fontSize: '16px', color: '#333' , }}>{description}</p>
             }
         </div>
     );
