@@ -19,7 +19,6 @@ import { useRecoilValue } from 'recoil';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-
 type ProductType = {
     id: number,
     trans_name: string,
@@ -110,15 +109,20 @@ export default function Products () {
                 width: 1200px;
                 margin: 90px 20px 90px 20px;
             `}>
-                <img 
-                    src={IconLogo}
-                    alt='세잎로고'
-                    css={css`
-                        display: block;
-                        height: 49px;
-                        margin-right: 16px;
-                    `}
-                />
+                <a href="/products">
+                    <img src={IconLogo}
+                        alt='세잎로고'
+                        css={css`
+                            display: block;
+                            height: 49px;
+                            margin-right: 16px;
+                        `}
+                    />
+                </a>
+                {/* <a href="https://dullyshin.github.io/" height="5" width="10" target="_blank">
+	                <img src="\images\logo.png" alt="위의 이미지를 누르면 연결됩니다.">
+                <a> */}
+
                 <div css={css`
                     position: relative;
                     width: 342px;

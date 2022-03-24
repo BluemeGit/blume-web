@@ -108,6 +108,7 @@ export default function Product () {
                 width: 1200px;
                 margin: 90px 20px 160px 20px;
             `}>
+                <a href="/products">
                 <img 
                     src={IconLogo}
                     alt='세잎로고'
@@ -117,6 +118,7 @@ export default function Product () {
                         margin-right: 16px;
                     `}
                 />
+                </a>
                 <div css={css`
                     position: relative;
                     width: 342px;
