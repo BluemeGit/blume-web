@@ -36,6 +36,9 @@ export default function Home () {
     const onAppDownload = () => {
         window.open('https://play.google.com/store/apps/details?id=com.blume', '_blank');
     }
+    const goToWeb = () => {
+        window.open('/products', '_blank');
+    }
     const scrollToDownload = () => {
         if (DownloadRef.current)
             DownloadRef.current?.scrollIntoView({behavior: 'smooth'});
@@ -141,7 +144,10 @@ export default function Home () {
                 </MobilePageContainer>
                 <MobilePageContainer>
                     <Image data-aos="fade-up" src={IconMae} alt='세잎이' width='80px' style={{marginBottom: '20px'}}/>
-                    <Button data-aos="fade-up" onClick={onAppDownload}>앱 다운로드</Button>
+                    <ButtonContainer>
+                        <Button data-aos="fade-up" onClick={onAppDownload}>세잎 앱 다운로드</Button>
+                        <Button data-aos="fade-up" onClick={goToWeb}>세잎 웹으로 이동</Button>
+                    </ButtonContainer>
                 </MobilePageContainer>
                 <Footer data-aos="fade-up"/>
             </MobileContainer>
@@ -208,7 +214,10 @@ export default function Home () {
             <PageContainer data-aos="fade-up" backgroundColor={'#F7FFF9'} ref={DownloadRef}>
                 <Title data-aos="fade-up">{'2022년 1월,\n세잎 앱 서비스 출시 예정'}</Title>
                 <Image data-aos="fade-up" src={IconMae} alt='세잎이' width='89px'/>
-                <Button data-aos="fade-up" onClick={onAppDownload}>세잎 앱 다운로드</Button>
+                <ButtonContainer>
+                    <Button data-aos="fade-up" onClick={onAppDownload}>세잎 앱 다운로드</Button>
+                    <Button data-aos="fade-up" onClick={goToWeb}>세잎 웹으로 이동</Button>
+                </ButtonContainer>
             </PageContainer>
             <Footer data-aos="fade-up"/>
         </Container>
@@ -285,6 +294,14 @@ const Content = styled.span`
 const BoldGreen = styled.b`
     color: #1ED154;
 `;
+
+const ButtonContainer = styled.div`
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+`;
+
 const Button = styled.button`
     border-radius: 5px;
     height: 40px;
