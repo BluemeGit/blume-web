@@ -62,7 +62,8 @@ export default function Home () {
                         '나'의 2405일,<br/>
                         그 이상을 위한 검색
                     </Text>
-                    <div css={css`
+                    <div
+                        css={css`
                         position: relative;
                         padding: 20px 0px;
                     `}>

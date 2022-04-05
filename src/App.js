@@ -21,6 +21,7 @@ const App = () => {
             setMobile(true);
         }
     }
+
     useEffect(() => {
         handleResize();
         window.addEventListener('resize', handleResize);
