@@ -21,11 +21,13 @@ import { css } from '@emotion/react';
 import useInput from '../../../hooks/useInput';
 type MaterialType = {
     title: string,
-    description: string
+    description: string,
+    orderList? : number
 }
 type MaterialObjectType = {
     type: string,
-    list: MaterialType[]
+    list: MaterialType[],
+    orderList? : number
 }
 export default function Product () {
     const navigate = useNavigate();
@@ -34,12 +36,24 @@ export default function Product () {
     const isMobile = useRecoilValue(mobile);
     const query = useInput('');
     const { data, error } = useSWR(`/product/info/${params.id}`, fetcher);
+
+    const [materials, setMaterials] = useState([]);
+
+
+
     useEffect(() => {
         if (!data) return;
+
+        data.data.materials.map((objs: MaterialObjectType) => {
+            objs.list.sort((a, b) => a.orderList - b.orderList)
+        })
+
+        setMaterials(data.data.materials)
+
         if (getWishs()?.split(',').includes(String(data.data.id))) {
             setIsWish(true);
         }
-    }, [data]);
+    }, [data, materials]);
 
     if (error) return <div>error!</div>
     if (!data) return <div>loading...</div>
@@ -198,7 +212,7 @@ export default function Product () {
                         
                     `}>{data.data.description}</p>
                     <div>
-                        {data.data.materials.map((materialObject: MaterialObjectType) => 
+                        {materials?.length > 0 && materials?.map((materialObject: MaterialObjectType) => 
                             <div css={css`
                                 border-top: 1px solid #f4F4F4;
                                 border-bottom: 1px solid #f4F4F4;

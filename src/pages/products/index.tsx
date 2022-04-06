@@ -38,15 +38,17 @@ export default function Products () {
     const location = useLocation();
     const navigate = useNavigate();
     useEffect(() => {
-        
         if (timer) {
             clearTimeout(timer);
         }
         const newTimer = setTimeout(async () => {
             setDebounceQuery(query.value);
         }, 800);
+
         setTimer(newTimer);
+
     }, [query.value]);
+
     useEffect(() => {
         // Query String Setting
         const queries = location.search.split('query=');
@@ -54,6 +56,7 @@ export default function Products () {
             query.onChange(decodeURI(queries[1].split('&')[0]));
         }
     }, []);
+
     const { data: products, error: productError } = useSWR(`/product/search?query=${debounceQuery}`, fetcher);
     const { data: ads, error: adError } = useSWR('/product/ads', fetcher);
     
