@@ -20,26 +20,42 @@ import mobile from "../../../recoil/mobile";
 import { css } from "@emotion/react";
 import useInput from "../../../hooks/useInput";
 type MaterialType = {
-    title: string;
-    description: string;
-};
+
+    title: string,
+    description: string,
+    orderList? : number
+}
 type MaterialObjectType = {
-    type: string;
-    list: MaterialType[];
-};
-export default function Product() {
+    type: string,
+    list: MaterialType[],
+    orderList? : number
+}
+export default function Product () {
     const navigate = useNavigate();
     const params = useParams();
     const [isWish, setIsWish] = useState<boolean>(false);
     const isMobile = useRecoilValue(mobile);
     const query = useInput("");
     const { data, error } = useSWR(`/product/info/${params.id}`, fetcher);
+
+    const [materials, setMaterials] = useState([]);
+
+
+
     useEffect(() => {
         if (!data) return;
-        if (getWishs()?.split(",").includes(String(data.data.id))) {
-            setIsWish(true);
+Wishs()?.split(",").includes(String(data.data.id))) {
+
+        data.data.materials.map((objs: MaterialObjectType) => {
+            objs.list.sort((a, b) => a.orderList - b.orderList)
+        })
+
+        setMaterials(data.data.materials)
+
+        if (getWishs()?.split(',').includes(String(data.data.id))) {
+          setIsWish(true);
         }
-    }, [data]);
+    }, [data, materials]);
 
     if (error) return <div>erro!!!!!!!!!!!!!!!!!!!!r!</div>;
     if (!data) return <div>loading...</div>;
@@ -215,22 +231,18 @@ export default function Product() {
                         {data.data.description}
                     </p>
                     <div>
-                        {data.data.materials.map((materialObject: MaterialObjectType) => (
-                            <div
-                                css={css`
-                                    border-top: 1px solid #f4f4f4;
-                                    border-bottom: 1px solid #f4f4f4;
-                                `}
-                            >
-                                <p
-                                    css={css`
-                                        font-size: 20px;
-                                        color: #666666;
-                                    `}
-                                >
-                                    {materialObject.type}
-                                </p>
-                                {materialObject.list.map((material: MaterialType, id: number) => (
+
+                        {materials?.length > 0 && materials?.map((materialObject: MaterialObjectType) => 
+                            <div css={css`
+                                border-top: 1px solid #f4F4F4;
+                                border-bottom: 1px solid #f4F4F4;
+                            `}>
+                                <p css={css`
+                                    font-size: 20px;
+                                    color: #666666;
+
+                                `}>{materialObject.type}</p>
+                                {materialObject.list.map((material: MaterialType, id: number) =>
                                     <MaterialBox
                                         key={id}
                                         title={material.title}

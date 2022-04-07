@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+/blume-api/build
 
 # misc
 .DS_Store

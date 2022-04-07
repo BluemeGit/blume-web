@@ -43,8 +43,11 @@ export default function Products() {
         const newTimer = setTimeout(async () => {
             setDebounceQuery(query.value);
         }, 800);
+
         setTimer(newTimer);
+
     }, [query.value]);
+
     useEffect(() => {
         // Query String Setting
         const queries = location.search.split("query=");
@@ -56,12 +59,9 @@ export default function Products() {
         `/product/search?query=${debounceQuery}`,
         fetcher
     );
-    // console.log(products);
     const { data: ads, error: adError } = useSWR("/product/ads", fetcher);
-    console.log(adError);
-    console.log(ads);
 
-    // if (productError || adError) return <div>error!!!!!!!!!!!!!!!</div>;
+
 
     if (isMobile) {
         return (
