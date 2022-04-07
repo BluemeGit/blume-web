@@ -20,17 +20,16 @@ import mobile from "../../../recoil/mobile";
 import { css } from "@emotion/react";
 import useInput from "../../../hooks/useInput";
 type MaterialType = {
-
-    title: string,
-    description: string,
-    orderList? : number
-}
+    title: string;
+    description: string;
+    orderList?: number;
+};
 type MaterialObjectType = {
-    type: string,
-    list: MaterialType[],
-    orderList? : number
-}
-export default function Product () {
+    type: string;
+    list: MaterialType[];
+    orderList?: number;
+};
+export default function Product() {
     const navigate = useNavigate();
     const params = useParams();
     const [isWish, setIsWish] = useState<boolean>(false);
@@ -40,20 +39,17 @@ export default function Product () {
 
     const [materials, setMaterials] = useState([]);
 
-
-
     useEffect(() => {
         if (!data) return;
-Wishs()?.split(",").includes(String(data.data.id))) {
 
         data.data.materials.map((objs: MaterialObjectType) => {
-            objs.list.sort((a, b) => a.orderList - b.orderList)
-        })
+            objs.list.sort((a, b) => a.orderList - b.orderList);
+        });
 
-        setMaterials(data.data.materials)
+        setMaterials(data.data.materials);
 
-        if (getWishs()?.split(',').includes(String(data.data.id))) {
-          setIsWish(true);
+        if (getWishs()?.split(",").includes(String(data.data.id))) {
+            setIsWish(true);
         }
     }, [data, materials]);
 
@@ -231,26 +227,33 @@ Wishs()?.split(",").includes(String(data.data.id))) {
                         {data.data.description}
                     </p>
                     <div>
-
-                        {materials?.length > 0 && materials?.map((materialObject: MaterialObjectType) => 
-                            <div css={css`
-                                border-top: 1px solid #f4F4F4;
-                                border-bottom: 1px solid #f4F4F4;
-                            `}>
-                                <p css={css`
-                                    font-size: 20px;
-                                    color: #666666;
-
-                                `}>{materialObject.type}</p>
-                                {materialObject.list.map((material: MaterialType, id: number) =>
-                                    <MaterialBox
-                                        key={id}
-                                        title={material.title}
-                                        description={material.description}
-                                    />
-                                ))}
-                            </div>
-                        ))}
+                        {materials?.length > 0 &&
+                            materials?.map((materialObject: MaterialObjectType) => (
+                                <div
+                                    css={css`
+                                        border-top: 1px solid #f4f4f4;
+                                        border-bottom: 1px solid #f4f4f4;
+                                    `}
+                                >
+                                    <p
+                                        css={css`
+                                            font-size: 20px;
+                                            color: #666666;
+                                        `}
+                                    >
+                                        {materialObject.type}
+                                    </p>
+                                    {materialObject.list.map(
+                                        (material: MaterialType, id: number) => (
+                                            <MaterialBox
+                                                key={id}
+                                                title={material.title}
+                                                description={material.description}
+                                            />
+                                        )
+                                    )}
+                                </div>
+                            ))}
                     </div>
                 </div>
             </article>

@@ -45,7 +45,6 @@ export default function Products() {
         }, 800);
 
         setTimer(newTimer);
-
     }, [query.value]);
 
     useEffect(() => {
@@ -60,8 +59,6 @@ export default function Products() {
         fetcher
     );
     const { data: ads, error: adError } = useSWR("/product/ads", fetcher);
-
-
 
     if (isMobile) {
         return (
