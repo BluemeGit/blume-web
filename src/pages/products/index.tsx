@@ -90,7 +90,7 @@ export default function Products () {
                                     content={product.description}
                                 />
                                 {id % 4 === 3 && 
-                                    <AdvertiseBox src={ads.data[Math.floor(id / 4) % ads.data.length].ImageURL}/>
+                                    <AdvertiseBox src={ads.data[Math.floor(id / 4) % ads.data.length]?.ImageURL}/>
                                 }
                             </>
                         );

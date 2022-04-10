@@ -7,8 +7,9 @@ const Container = styled.img`
 `;
 
 type AdvertiseBoxType = {
-    src: string
+    src?: string
 }
 export default function AdvertiseBox ({src}: AdvertiseBoxType) {
+    if(!src) return <></>;
     return <Container src={'https://kr.object.ncloudstorage.com/blume/' + src}></Container>
 }
