@@ -42,8 +42,6 @@ export default function Products() {
     const [productList, setProductList] = useState([]);
 
     useEffect(() => {
-        // console.log("hih");
-
         // Query String Setting
         const queries = location.search.split("query=");
         if (queries.length > 1) {
@@ -60,7 +58,6 @@ export default function Products() {
             setProductList(result.data.data);
         });
     };
-    //
 
     const onClickSubmit = (e: any) => {
         if (e.keyCode === 13) {
