@@ -15,8 +15,11 @@ import { getWishs } from "../../utils/localstorage";
 import { useLocation, useNavigate } from "react-router-dom";
 import mobile from "../../recoil/mobile";
 import { useRecoilValue } from "recoil";
+import { useParams } from "react-router-dom";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import axios from "axios";
+import { baseURL } from "../../fetch/fetcher";
 //
 type ProductType = {
     id: number;
@@ -36,28 +39,42 @@ export default function Products() {
     const isMobile = useRecoilValue(mobile);
     const location = useLocation();
     const navigate = useNavigate();
-    useEffect(() => {
-        if (timer) {
-            clearTimeout(timer);
-        }
-        const newTimer = setTimeout(async () => {
-            setDebounceQuery(query.value);
-        }, 800);
-
-        setTimer(newTimer);
-    }, [query.value]);
+    const [productList, setProductList] = useState([]);
 
     useEffect(() => {
+        // console.log("hih");
+
         // Query String Setting
         const queries = location.search.split("query=");
         if (queries.length > 1) {
             query.onChange(decodeURI(queries[1].split("&")[0]));
         }
+        setDebounceQuery(query.value);
+        onSubmit(query.value);
     }, []);
-    const { data: products, error: productError } = useSWR(
-        `/product/search?query=${debounceQuery}`,
-        fetcher
-    );
+
+    const onSubmit = (query = undefined) => {
+        console.log(query);
+
+        axios.get(`${baseURL}/product/search?query=${query || debounceQuery}`).then((result) => {
+            setProductList(result.data.data);
+        });
+    };
+
+    const onClickSubmit = (e: any) => {
+        if (e.keyCode === 13) {
+            onSubmit();
+            navigate(`/products?query=${debounceQuery}`);
+        }
+    };
+    const onChangeInput = (e: any) => {
+        setDebounceQuery(e.target.value);
+    };
+
+    // const { data: products, error: productError } = useSWR(
+    //     `/product/search?query=${debounceQuery}`,
+    //     fetcher
+    // );
     const { data: ads, error: adError } = useSWR("/product/ads", fetcher);
 
     if (isMobile) {
@@ -78,9 +95,9 @@ export default function Products() {
                 </ToggleContainer>
 
                 <ProductContainer>
-                    {products &&
+                    {productList &&
                         ads &&
-                        products.data.map((product: ProductType, id: number) => {
+                        productList.map((product: ProductType, id: number) => {
                             if (isWish && !getWishs()?.includes(String(product.id))) {
                                 return <></>;
                             }
@@ -138,7 +155,6 @@ export default function Products() {
                 {/* <a href="https://dullyshin.github.io/" height="5" width="10" target="_blank">
 	                <img src="\images\logo.png" alt="위의 이미지를 누르면 연결됩니다.">
                 <a> */}
-                /* */
                 <div
                     css={css`
                         position: relative;
@@ -157,6 +173,9 @@ export default function Products() {
                         `}
                         {...query}
                         placeholder={"알고 싶은 생리대의 이름을 검색하세요."}
+                        onChange={onChangeInput}
+                        value={debounceQuery}
+                        onKeyDown={onClickSubmit}
                     />
                     <img
                         alt={"검색 아이콘"}
@@ -196,9 +215,9 @@ export default function Products() {
                         gap: 40px 40px;
                     `}
                 >
-                    {products &&
+                    {productList &&
                         ads &&
-                        products.data.map((product: ProductType, id: number) => {
+                        productList.map((product: ProductType, id: number) => {
                             if (isWish && !getWishs()?.includes(String(product.id))) {
                                 return <></>;
                             }
