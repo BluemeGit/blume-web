@@ -104,6 +104,12 @@ export default function Product() {
                         </>
                     ))}
                 </MaterialContainer>
+                <Footer>
+            1. 서비스 내 모든 성분 해석 정보는 세잎의 단순 ‘의견’입니다.{'\n'}
+            2. 성분 해석 정보는 제품 구매를 위한 참고 정보이며, 법적 책임을 지지 않습니다.{'\n'}
+            3. 데이터의 오류가 있을 수 있습니다. 제품 구매 전 제조판매업자가 표기한 전성분 표를 한 번 더 확인하시길 권장합니다.{'\n'}
+            4. 세잎의 성분 해석 정보를 허가 없이 상업적으로 활용할 경우, 법적 조치를 받을 수 있습니다.{'\n'}
+                </Footer>
             </Container>
         );
     }
@@ -257,6 +263,14 @@ export default function Product() {
                     </div>
                 </div>
             </article>
+            <FooterPC>
+            {'\n'}{'\n'}{'\n'}
+            1. 서비스 내 모든 성분 해석 정보는 세잎의 단순 ‘의견’입니다.{'\n'}
+            2. 성분 해석 정보는 제품 구매를 위한 참고 정보이며, 법적 책임을 지지 않습니다.{'\n'}
+            3. 데이터의 오류가 있을 수 있습니다. 제품 구매 전 제조판매업자가 표기한 전성분 표를 한 번 더 확인하시길 권장합니다.{'\n'}
+            4. 세잎의 성분 해석 정보를 허가 없이 상업적으로 활용할 경우, 법적 조치를 받을 수 있습니다.{'\n'}
+            {'\n'}{'\n'}{'\n'}
+            </FooterPC>
         </div>
     );
 }
@@ -320,3 +334,15 @@ const MaterialMenu = styled.p`
     margin: 0;
     background: #f1f1f5;
 `;
+const Footer = styled.div`
+    padding: 20px;
+    white-space : pre;
+    font-size: 12px;
+    color: #666666;
+`
+const FooterPC = styled.div`
+    white-space : pre;
+    width: 80vw;
+    font-size: 10px;
+    color: #666666;
+`
