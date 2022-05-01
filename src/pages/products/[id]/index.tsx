@@ -43,10 +43,13 @@ export default function Product() {
         if (!data) return;
 
         data.data.materials.map((objs: MaterialObjectType) => {
+            // 숫자가 낮을수록 위로 올라감
             objs.list.sort((a, b) => a.orderList - b.orderList);
         });
 
         setMaterials(data.data.materials);
+
+        console.log(data.data.materials)
 
         if (getWishs()?.split(",").includes(String(data.data.id))) {
             setIsWish(true);
@@ -91,17 +94,17 @@ export default function Product() {
                 </ProductContainer>
                 <MaterialContainer>
                     <MaterialTitle>구조별 전 소재 성분 정보</MaterialTitle>
-                    {data.data.materials.map((materialObject: MaterialObjectType) => (
-                        <>
+                    {materials.map((materialObject: MaterialObjectType, idx : number) => (
+                        <div key={idx}>
                             <MaterialMenu>{materialObject.type}</MaterialMenu>
-                            {materialObject.list.map((material: MaterialType, id: number) => (
+                            {materialObject.list.map((material: MaterialType) => (
                                 <MaterialBox
-                                    key={id}
+                                    key={material.title}
                                     title={material.title}
                                     description={material.description}
                                 />
                             ))}
-                        </>
+                        </div>
                     ))}
                 </MaterialContainer>
                 <Footer>
@@ -234,8 +237,9 @@ export default function Product() {
                     </p>
                     <div>
                         {materials?.length > 0 &&
-                            materials?.map((materialObject: MaterialObjectType) => (
+                            materials?.map((materialObject: MaterialObjectType, idx : number) => (
                                 <div
+                                    key={idx}
                                     css={css`
                                         border-top: 1px solid #f4f4f4;
                                         border-bottom: 1px solid #f4f4f4;
