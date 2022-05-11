@@ -16,6 +16,7 @@ import IconSearch from "../../../assets/common/icon_search.svg";
 import IconLogo from "../../../assets/common/icon_logo.svg";
 import { useRecoilValue } from "recoil";
 import mobile from "../../../recoil/mobile";
+import Comment from "../../../components/comment/Comment";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import useInput from "../../../hooks/useInput";
@@ -54,11 +55,11 @@ export default function Product() {
             objs.list.sort((a, b) => a.orderList - b.orderList);
         });
 
-        data.data.materials.sort((a,b) => a.orderList - b.orderList);
+        data.data.materials.sort((a, b) => a.orderList - b.orderList);
 
         setMaterials(data.data.materials);
 
-        console.log(data.data.materials)
+        console.log(data.data.materials);
 
         if (getWishs()?.split(",").includes(String(data.data.id))) {
             setIsWish(true);
@@ -103,7 +104,7 @@ export default function Product() {
                 </ProductContainer>
                 <MaterialContainer>
                     <MaterialTitle>구조별 전 소재 성분 정보</MaterialTitle>
-                    {materials.map((materialObject: MaterialObjectType, idx : number) => (
+                    {materials.map((materialObject: MaterialObjectType, idx: number) => (
                         <div key={idx}>
                             <MaterialMenu>{materialObject.type}</MaterialMenu>
                             {materialObject.list.map((material: MaterialType) => (
@@ -117,11 +118,35 @@ export default function Product() {
                     ))}
                 </MaterialContainer>
                 <Footer>
-            1. 서비스 내 모든 성분 해석 정보는 세잎의 단순 ‘의견’입니다.{'\n'}
-            2. 성분 해석 정보는 제품 구매를 위한 참고 정보이며, 법적 책임을 지지 않습니다.{'\n'}
-            3. 데이터의 오류가 있을 수 있습니다. 제품 구매 전 제조판매업자가 표기한 전성분 표를 한 번 더 확인하시길 권장합니다.{'\n'}
-            4. 세잎의 성분 해석 정보를 허가 없이 상업적으로 활용할 경우, 법적 조치를 받을 수 있습니다.{'\n'}
+                    1. 서비스 내 모든 성분 해석 정보는 세잎의 단순 ‘의견’입니다.{"\n"}
+                    2. 성분 해석 정보는 제품 구매를 위한 참고 정보이며, 법적 책임을 지지 않습니다.
+                    {"\n"}
+                    3. 데이터의 오류가 있을 수 있습니다. 제품 구매 전 제조판매업자가 표기한 전성분
+                    표를 한 번 더 확인하시길 권장합니다.{"\n"}
+                    4. 세잎의 성분 해석 정보를 허가 없이 상업적으로 활용할 경우, 법적 조치를 받을 수
+                    있습니다.{"\n"}
                 </Footer>
+                <div
+                    style={{
+                        position: "fixed",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "#1ED154",
+                        height: "3rem",
+                        bottom: "0rem",
+                        width: "100%",
+                    }}
+                >
+                    <a
+                        style={{ color: "white", fontWeight: "bold", textDecoration: "none" }}
+                        href={`https://search.shopping.naver.com/search/all?query=${data.data.trans_name}`}
+                    >
+                        최저가 검색
+                    </a>
+                </div>
+
+                <div style={{ height: "3rem" }}></div>
             </Container>
         );
     }
@@ -245,34 +270,72 @@ export default function Product() {
                         {data.data.description}
                     </p>
                     <div>
-                        {materials?.length > 0 && materials?.map((materialObject: MaterialObjectType, idx : number) => (
-                            <div key={idx}  css={css`border-top: 1px solid #f4f4f4; border-bottom: 1px solid #f4f4f4; `}>
+                        {materials?.length > 0 &&
+                            materials?.map((materialObject: MaterialObjectType, idx: number) => (
+                                <div
+                                    key={idx}
+                                    css={css`
+                                        border-top: 1px solid #f4f4f4;
+                                        border-bottom: 1px solid #f4f4f4;
+                                    `}
+                                >
+                                    <p
+                                        css={css`
+                                            font-size: 20px;
+                                            color: #666666;
+                                        `}
+                                    >
+                                        {materialObject.type}
+                                    </p>
 
-                                <p css={css` font-size: 20px; color: #666666;`}>
-                                    {materialObject.type}
-                                </p>
-
-                                {materialObject.list.map(
-                                    (material: MaterialType, id: number) => (
-                                        <MaterialBox
-                                            key={id}
-                                            title={material.title}
-                                            description={material.description}
-                                        />
-                                    )
-                                )}
-                            </div>
-                        ))}
+                                    {materialObject.list.map(
+                                        (material: MaterialType, id: number) => (
+                                            <MaterialBox
+                                                key={id}
+                                                title={material.title}
+                                                description={material.description}
+                                            />
+                                        )
+                                    )}
+                                </div>
+                            ))}
+                    </div>
+                    <div style={{ display: "flex", backgroundColor: "1ED154", marginTop: "1rem" }}>
+                        <a
+                            style={{
+                                marginLeft: "auto",
+                                padding: "0.5rem",
+                                width: "9rem",
+                                textAlign: "center",
+                                backgroundColor: "#1ED154",
+                                borderRadius: "6px",
+                                color: "white",
+                                fontWeight: "bold",
+                                textDecoration: "none",
+                                marginBottom: "2rem",
+                            }}
+                            href={`https://search.shopping.naver.com/search/all?query=${data.data.trans_name}`}
+                        >
+                            최저가 검색
+                        </a>
                     </div>
                 </div>
             </article>
+            <Comment />
+
             <FooterPC>
-            {'\n'}{'\n'}{'\n'}
-            1. 서비스 내 모든 성분 해석 정보는 세잎의 단순 ‘의견’입니다.{'\n'}
-            2. 성분 해석 정보는 제품 구매를 위한 참고 정보이며, 법적 책임을 지지 않습니다.{'\n'}
-            3. 데이터의 오류가 있을 수 있습니다. 제품 구매 전 제조판매업자가 표기한 전성분 표를 한 번 더 확인하시길 권장합니다.{'\n'}
-            4. 세잎의 성분 해석 정보를 허가 없이 상업적으로 활용할 경우, 법적 조치를 받을 수 있습니다.{'\n'}
-            {'\n'}{'\n'}{'\n'}
+                {"\n"}
+                {"\n"}
+                {"\n"}
+                1. 서비스 내 모든 성분 해석 정보는 세잎의 단순 ‘의견’입니다.{"\n"}
+                2. 성분 해석 정보는 제품 구매를 위한 참고 정보이며, 법적 책임을 지지 않습니다.{"\n"}
+                3. 데이터의 오류가 있을 수 있습니다. 제품 구매 전 제조판매업자가 표기한 전성분 표를
+                한 번 더 확인하시길 권장합니다.{"\n"}
+                4. 세잎의 성분 해석 정보를 허가 없이 상업적으로 활용할 경우, 법적 조치를 받을 수
+                있습니다.{"\n"}
+                {"\n"}
+                {"\n"}
+                {"\n"}
             </FooterPC>
         </div>
     );
@@ -339,13 +402,13 @@ const MaterialMenu = styled.p`
 `;
 const Footer = styled.div`
     padding: 20px;
-    white-space : pre;
+    white-space: pre;
     font-size: 12px;
     color: #666666;
-`
+`;
 const FooterPC = styled.div`
-    white-space : pre;
+    white-space: pre;
     width: 80vw;
     font-size: 10px;
     color: #666666;
-`
+`;
