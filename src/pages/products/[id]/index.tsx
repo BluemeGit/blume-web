@@ -238,18 +238,6 @@ export default function Product() {
                             width: calc(1200px - 543px);
                         `}
                     >
-                        <img
-                            src={isWish ? IconHeartFill : IconHeartEmpty}
-                            onClick={onToggleWish}
-                            alt={"찜"}
-                            css={css`
-                                width: 56px;
-                                padding: 12px;
-                                border: 1px solid #dddddd;
-                                border-radius: 5px;
-                                margin-right: 20px;
-                            `}
-                        />
                         <p
                             css={css`
                                 font-size: 34px;
@@ -300,11 +288,20 @@ export default function Product() {
                                 </div>
                             ))}
                     </div>
-                    <div style={{ display: "flex", backgroundColor: "1ED154", marginTop: "1rem" }}>
+
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "row-reverse",
+                            backgroundColor: "1ED154",
+                            marginTop: "1rem",
+                        }}
+                    >
                         <a
                             style={{
-                                marginLeft: "auto",
+                                // marginLeft: "auto",
                                 padding: "0.5rem",
+                                paddingTop: "14px",
                                 width: "9rem",
                                 textAlign: "center",
                                 backgroundColor: "#1ED154",
@@ -313,11 +310,55 @@ export default function Product() {
                                 fontWeight: "bold",
                                 textDecoration: "none",
                                 marginBottom: "2rem",
+                                verticalAlign: "middle",
+
+                                fontSize: "1.2rem",
                             }}
                             href={`https://search.shopping.naver.com/search/all?query=${data.data.trans_name}`}
                         >
-                            최저가 검색
+                            네이버 최저가
                         </a>
+
+                        <a
+                            style={{
+                                // marginLeft: "auto",
+                                padding: "0.5rem",
+                                paddingTop: "14px",
+
+                                width: "9rem",
+                                textAlign: "center",
+                                backgroundColor: "#1ED154",
+                                borderRadius: "6px",
+                                color: "white",
+                                fontWeight: "bold",
+                                textDecoration: "none",
+                                marginBottom: "2rem",
+                                marginRight: "1rem",
+                                verticalAlign: "middle",
+                                // height: "2.5rem",
+                                fontSize: "1.2rem",
+
+                                height: "56px",
+                            }}
+                            href={`http://search.danawa.com/dsearch.php?k1=${data.data.trans_name}`}
+                        >
+                            다나와 최저가
+                        </a>
+
+                        <img
+                            src={isWish ? IconHeartFill : IconHeartEmpty}
+                            onClick={onToggleWish}
+                            alt={"찜"}
+                            css={css`
+                                width: 56px;
+                                padding: 12px;
+                                border: 1px solid #dddddd;
+                                border-radius: 5px;
+                                margin-right: 20px;
+                                height: 56px;
+                                /* margin-left: "auto"; */
+                            `}
+                        />
                     </div>
                 </div>
             </article>
