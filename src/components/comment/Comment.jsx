@@ -2,25 +2,39 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import CommentBox from "./CommentBox";
-
+import { useParams } from "react-router-dom";
+import { fetcher, putter } from "../../fetch/fetcher";
 export default function Comment() {
     const [cat, setCat] = useState("orderByRecommend");
-    let commentList = [
-        { userId: 1, nick: "원태경", content: "댓글테스트", createdAt: "오늘" },
-        { userId: 1, nick: "원태경", content: "댓글테스트", createdAt: "오늘" },
-        { userId: 1, nick: "원태경", content: "댓글테스트", createdAt: "오늘" },
-        { userId: 1, nick: "원태경", content: "댓글테스트", createdAt: "오늘" },
-        { userId: 1, nick: "원태경", content: "댓글테스트", createdAt: "오늘" },
-        { userId: 1, nick: "원태경", content: "댓글테스트", createdAt: "오늘" },
-        { userId: 1, nick: "원태경", content: "댓글테스트", createdAt: "오늘" },
-        { userId: 1, nick: "원태경", content: "댓글테스트", createdAt: "오늘" },
-    ];
+    const [commentList, setCommentList] = useState([]);
+    const [description, setDescription] = useState("");
+    const params = useParams();
+    const onChangeInput = (e) => {
+        setDescription(e.target.value);
+    };
+    const onClickSubmit = () => {
+        putter(`/comment/${params.id}`, { description }).then((result) => {
+            alert("완료되었습니다.");
+        });
+        refreshFunction();
+    };
 
+    //수정필요
+    const refreshFunction = () => {
+        setDescription("");
+    };
+    useEffect(() => {
+        fetcher(`/comment/${params.id}`).then((res) => {
+            console.log(res.data.data);
+            setCommentList(res.data);
+        });
+    }, []);
     return (
         <Wrap>
             <input
                 style={{ width: "100%", height: "5rem", marignTop: "4rem" }}
                 placeholder="제품에 대한 후기/의견/댓글을 자유롭게 써주시되 욕설, 모욕, 비방은 자제해주세요!"
+                onChange={onChangeInput}
             ></input>
             <div style={{ display: "flex" }}>
                 <span
@@ -33,7 +47,9 @@ export default function Comment() {
                         color: "white",
                         marginTop: "0.3rem",
                         fontSize: "0.9rem",
+                        cursor: "pointer",
                     }}
+                    onClick={onClickSubmit}
                 >
                     등록
                 </span>
@@ -64,22 +80,25 @@ export default function Comment() {
                 </span>
             </section>
             <section>
-                {commentList?.map((item) => {
-                    return (
-                        <CommentBox
-                            userId={item.userId}
-                            nick={item.nick}
-                            content={item.content}
-                            createdAt={item.createdAt}
-                        />
-                    );
-                })}
+                {commentList.length > 0 &&
+                    commentList?.map((item) => {
+                        return (
+                            <CommentBox
+                                userId={item.userId}
+                                nickname={item.nickname}
+                                content={item.content}
+                                indate={item.indate}
+                                description={item.description}
+                                key={item.id}
+                                refreshFunction={refreshFunction}
+                            />
+                        );
+                    })}
             </section>
         </Wrap>
     );
 }
 
 const Wrap = styled.section`
-    /* width: 100%; */
     min-width: 1200px;
 `;
