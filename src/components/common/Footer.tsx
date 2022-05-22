@@ -49,6 +49,7 @@ const MobileFooter = styled.footer`
     border-top: 1px solid #E7E7E7;
 `;
 const FooterContainer = styled.footer`
+    margin-top: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
