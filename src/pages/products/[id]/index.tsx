@@ -428,7 +428,7 @@ export default function Product() {
                     </div>
                 </div>
             </article>
-            <Comment />
+            {/* <Comment /> */}
 
             <FooterPC>
                 {"\n"}
