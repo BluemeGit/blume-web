@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from "@emotion/styled";
-import React, { useEffect, useState } from "react";
+// @ts-ignore
+import React, { useEffect, useState, Component } from "react";
 import useSWR from "swr";
-
 import MobileHeader from "../../components/common/mobile/MobileHeader";
 import AdvertiseBox from "../../components/products/ads/AdvertiseBox";
 import Product from "../../components/products/Product";
-
 import { fetcher } from "../../fetch/fetcher";
 import useInput from "../../hooks/useInput";
-
+// @ts-ignore
 import IconSearch from "../../assets/common/icon_search.svg";
-import IconLogo from "../../assets/common/icon_logo.svg";
+// @ts-ignorq7
+import IconLogo from "../../assets/common/maeee_icon.png";
 import { getWishs } from "../../utils/localstorage";
 import { useLocation, useNavigate } from "react-router-dom";
 import mobile from "../../recoil/mobile";
@@ -20,6 +21,15 @@ import { useParams } from "react-router-dom";
 import { css } from "@emotion/react";
 import axios from "axios";
 import { baseURL } from "../../fetch/fetcher";
+import KakaoLogin from "../../components/common/KakaoLogin";
+// @ts-ignore
+import Insta_icon from "../../assets/common/instagram_icon.svg";
+// @ts-ignore
+import Youtube_icon from "../../assets/common/youtube_icon.svg";
+import Footer from "../../components/common/Footer"
+// @ts-ignore
+const { Kakao } = window;
+
 //
 type ProductType = {
     id: number;
@@ -91,7 +101,6 @@ export default function Products() {
                         찜한 제품
                     </ToggleButton>
                 </ToggleContainer>
-
                 <ProductContainer>
                     {productList &&
                         ads &&
@@ -119,6 +128,7 @@ export default function Products() {
                             );
                         })}
                 </ProductContainer>
+                <Footer></Footer>
             </Container>
         );
     }
@@ -131,7 +141,7 @@ export default function Products() {
                 width: 100vw;
             `}
         >
-            <header
+            <HeaderContainer
                 css={css`
                     display: flex;
                     align-items: center;
@@ -139,14 +149,46 @@ export default function Products() {
                     margin: 90px 20px 90px 20px;
                 `}
             >
+                <a href ="https://www.youtube.com/channel/UCD97T1NyJfkbACBpEQ4rNUQ">
+                    <img
+                        src ={Youtube_icon}
+                        css = {css`
+                            position: relative;
+                            margin-left: 75px;
+                            top: 70%;
+                            right: 20px;
+                            width: 22px;
+                            height: 26px;
+                            opacity: 0.5;
+                       `}
+                    />
+                </a>
+                <a href ="https://www.instagram.com/3_leaf_official/">
+                   <img
+                       src ={Insta_icon}
+                       css = {css`
+                        position: relative;
+                        margin-left: 10px;
+                        top: 50%;
+                        right: 20px;
+                        width: 18.82px;
+                        height: 18.82px;
+                        opacity : 0.5;
+                        `}
+                       />
+                </a>
+
                 <a href="/products">
                     <img
                         src={IconLogo}
                         alt="세잎로고"
                         css={css`
-                            display: block;
-                            height: 49px;
-                            margin-right: 16px;
+                            display: flex;
+                            text-align: center;
+                            display: block; 
+                            margin: 0px auto;
+                            height: 150px;
+                            margin-left: 340px;
                         `}
                     />
                 </a>
@@ -155,18 +197,21 @@ export default function Products() {
                 <a> */}
                 <div
                     css={css`
-                        position: relative;
-                        width: 342px;
-                        height: 46px;
+                        text-align: center;
+                        position: absolute;
+                        margin-left: 370px;
+                        margin-top: 150px;
+                        width: 500px;
                     `}
                 >
                     <input
                         css={css`
+                            text-align: center;
                             padding: 0px 20px;
                             background: #f7f7f7;
                             border: 2px solid #1ed154;
                             border-radius: 30px;
-                            width: 100%;
+                            width: 80%;
                             height: 46px;
                         `}
                         {...query}
@@ -181,14 +226,15 @@ export default function Products() {
                         css={css`
                             position: absolute;
                             top: 50%;
-                            right: 20px;
+                            right: 80px;
                             width: 18.82px;
                             height: 18.82px;
                             transform: translateY(-50%);
                         `}
                     />
                 </div>
-            </header>
+                <KakaoLogin></KakaoLogin>
+            </HeaderContainer>
             <section
                 css={css`
                     width: 1060px;
@@ -262,6 +308,7 @@ export default function Products() {
                         })}
                 </div>
             </section>
+            <Footer></Footer>
         </div>
     );
 }
@@ -276,6 +323,11 @@ const ToggleButtonPC = styled.p<{ selected?: boolean }>`
     margin-right: 16px;
 `;
 const Container = styled.div``;
+
+const HeaderContainer = styled.div`
+    display : flex;
+    flex: 1 1 2 2
+`;
 
 const SearchContainer = styled.div`
     position: relative;
