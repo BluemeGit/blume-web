@@ -47,8 +47,8 @@ export default function Product() {
             if (objs.type === "표지층") objs.orderList = 0;
             else if (objs.type === "날개") objs.orderList = 1;
             else if (objs.type === "흡수층") objs.orderList = 2;
-            else if (objs.type === "방수충") objs.orderList = 3;
-            else if (objs.type === "접착제") objs.orderList = 4;
+            else if (objs.type === "접착제") objs.orderList = 3;
+            else if (objs.type === "방수충") objs.orderList = 4;
             else objs.orderList = 10;
             // 숫자가 낮을수록 위로 올라감
             objs.list.sort((a, b) => a.orderList - b.orderList);
