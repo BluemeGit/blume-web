@@ -1,25 +1,29 @@
 import styled from "@emotion/styled";
 
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
 import useSWR from "swr";
 import IconBack from "../../../assets/common/icon_back.svg";
 import IconWishFill from "../../../assets/product/icon-wish-fill.png";
 import IconWishStroke from "../../../assets/product/icon-wish-stroke.png";
-
 import IconHeartEmpty from "../../../assets/product/icon-heart-empty.svg";
 import IconHeartFill from "../../../assets/product/icon-heart-fill.svg";
 import MaterialBox from "../../../components/products/materials/MaterialBox";
-import { fetcher } from "../../../fetch/fetcher";
+import {baseURL, fetcher} from "../../../fetch/fetcher";
 import { addWish, delWish, getWishs } from "../../../utils/localstorage";
 import IconSearch from "../../../assets/common/icon_search.svg";
-import IconLogo from "../../../assets/common/icon_logo.svg";
+import IconLogo from "../../../assets/common/maeee_icon.png";
 import { useRecoilValue } from "recoil";
 import mobile from "../../../recoil/mobile";
 import Comment from "../../../components/comment/Comment";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import useInput from "../../../hooks/useInput";
+import KakaoLogin from "../../../components/common/KakaoLogin";
+import Insta_icon from "../../../assets/common/instagram_icon.svg";
+import Youtube_icon from "../../../assets/common/youtube_icon.svg";
+import axios from "axios";
+
 type MaterialType = {
     title: string;
     description: string;
@@ -37,6 +41,10 @@ export default function Product() {
     const isMobile = useRecoilValue(mobile);
     const query = useInput("");
     const { data, error } = useSWR(`/product/info/${params.id}`, fetcher);
+    const [debounceQuery, setDebounceQuery] = useState<string>("");
+    const [timer, setTimer] = useState<any>(undefined); // 디바운싱 타이머
+    const location = useLocation();
+    const [productList, setProductList] = useState([]);
 
     const [materials, setMaterials] = useState([]);
 
@@ -84,6 +92,23 @@ export default function Product() {
         if (event.key === "Enter") {
             navigate(`/products?query=${query.value}`);
         }
+    };
+    const onSubmit = (query = undefined) => {
+        console.log(query);
+
+        axios.get(`${baseURL}/product/search?query=${query || debounceQuery}`).then((result) => {
+            setProductList(result.data.data);
+        });
+    };
+
+    const onClickSubmit = (e: any) => {
+        if (e.keyCode === 13) {
+            onSubmit();
+            navigate(`/products?query=${debounceQuery}`);
+        }
+    };
+    const onChangeInput = (e: any) => {
+        setDebounceQuery(e.target.value);
     };
 
     if (isMobile) {
@@ -159,44 +184,84 @@ export default function Product() {
                 width: 100vw;
             `}
         >
-            <header
+            <HeaderContainer
                 css={css`
                     display: flex;
                     align-items: center;
                     width: 1200px;
-                    margin: 90px 20px 160px 20px;
+                    margin: 90px 20px 90px 20px;
                 `}
             >
+                <a href ="https://www.youtube.com/channel/UCD97T1NyJfkbACBpEQ4rNUQ">
+                    <img
+                        src ={Youtube_icon}
+                        css = {css`
+                            position: relative;
+                            margin-left: 75px;
+                            top: 70%;
+                            right: 20px;
+                            width: 22px;
+                            height: 26px;
+                            opacity: 0.5;
+                       `}
+                    />
+                </a>
+                <a href ="https://www.instagram.com/3_leaf_official/">
+                    <img
+                        src ={Insta_icon}
+                        css = {css`
+                        position: relative;
+                        margin-left: 10px;
+                        top: 50%;
+                        right: 20px;
+                        width: 18.82px;
+                        height: 18.82px;
+                        opacity : 0.5;
+                        `}
+                    />
+                </a>
+
                 <a href="/products">
                     <img
                         src={IconLogo}
                         alt="세잎로고"
                         css={css`
-                            display: block;
-                            height: 49px;
-                            margin-right: 16px;
+                            display: flex;
+                            text-align: center;
+                            display: block; 
+                            margin: 0px auto;
+                            height: 150px;
+                            margin-left: 340px;
                         `}
                     />
                 </a>
+                {/* <a href="https://dullyshin.github.io/" height="5" width="10" target="_blank">
+	                <img src="\images\logo.png" alt="위의 이미지를 누르면 연결됩니다.">
+                <a> */}
                 <div
                     css={css`
-                        position: relative;
-                        width: 342px;
-                        height: 46px;
+                        text-align: center;
+                        position: absolute;
+                        margin-left: 370px;
+                        margin-top: 150px;
+                        width: 500px;
                     `}
                 >
                     <input
                         css={css`
+                            text-align: center;
                             padding: 0px 20px;
                             background: #f7f7f7;
                             border: 2px solid #1ed154;
                             border-radius: 30px;
-                            width: 100%;
+                            width: 80%;
                             height: 46px;
                         `}
                         {...query}
-                        onKeyDown={onSearch}
                         placeholder={"알고 싶은 생리대의 이름을 검색하세요."}
+                        onChange={onChangeInput}
+                        value={debounceQuery}
+                        onKeyDown={onClickSubmit}
                     />
                     <img
                         alt={"검색 아이콘"}
@@ -204,14 +269,15 @@ export default function Product() {
                         css={css`
                             position: absolute;
                             top: 50%;
-                            right: 20px;
+                            right: 80px;
                             width: 18.82px;
                             height: 18.82px;
                             transform: translateY(-50%);
                         `}
                     />
                 </div>
-            </header>
+                <KakaoLogin></KakaoLogin>
+            </HeaderContainer>
             <article
                 css={css`
                     display: flex;
@@ -452,4 +518,10 @@ const FooterPC = styled.div`
     width: 80vw;
     font-size: 10px;
     color: #666666;
+`
+
+
+const HeaderContainer = styled.div`
+    display : flex;
+    flex: 1 1 2 2;
 `;
