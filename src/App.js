@@ -5,7 +5,9 @@ import Products from "./pages/products/index.tsx";
 import Product from "./pages/products/[id]/index.tsx";
 import Privacy from "./pages/privacy/index.tsx";
 import mobile from "./recoil/mobile.ts";
+import RecoileTest from "./pages/recoil";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { RecoilRoot, atom, selector, useRecoilState, userRecoilValue } from "recoil";
 
 const App = () => {
     const setMobile = useSetRecoilState(mobile);
@@ -26,14 +28,17 @@ const App = () => {
     });
 
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/products/:id" element={<Product />} />
-                <Route path="/privacy" element={<Privacy />} />
-            </Routes>
-        </BrowserRouter>
+        <RecoilRoot>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/products" element={<Products />} />
+                    <Route path="/products/:id" element={<Product />} />
+                    <Route path="/privacy" element={<Privacy />} />
+                    <Route path="/recoil" element={<RecoileTest />} />
+                </Routes>
+            </BrowserRouter>
+        </RecoilRoot>
     );
 };
 

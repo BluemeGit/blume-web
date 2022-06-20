@@ -24,7 +24,8 @@
         "react-player": "^2.9.0",
         "react-router-dom": "^6.3.0",
         "react-scripts": "5.0.0",
-        "recoil": "^0.6.1",
+        "recoil": "^0.7.3",
+        "recoil-persist": "^4.2.0",
         "swr": "^1.1.2",
         "typescript": "^4.5.4",
         "web-vitals": "^2.1.3"
