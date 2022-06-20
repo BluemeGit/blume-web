@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { Link } from "react-router-dom";
-import { countState, inputState } from "./atom"; // 새로 변경된 코드
+import { countState, inputState } from "../../recoil/atom"; // 새로 변경된 코드
 import countStateSelector from "./selector"; // 새로 추가된 코드
 import { useRecoilState, useRecoilValue, useSetRecoilState, useResetRecoilState } from "recoil";
 

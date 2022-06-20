@@ -4,16 +4,19 @@ import React, { useEffect, useState } from "react";
 import CommentBox from "./CommentBox";
 import { useParams } from "react-router-dom";
 import { fetcher, putter } from "../../fetch/fetcher";
+import { userState } from "../../recoil/atom";
+import { useRecoilValue, useRecoilState } from "recoil";
 export default function Comment() {
     const [cat, setCat] = useState("orderByRecommend");
     const [commentList, setCommentList] = useState([]);
     const [description, setDescription] = useState("");
+    const user = useRecoilValue(userState);
     const params = useParams();
     const onChangeInput = (e) => {
         setDescription(e.target.value);
     };
     const onClickSubmit = () => {
-        putter(`/comment/${params.id}`, { description }).then((result) => {
+        putter(`/comment/${params.id}`, { description }, user.accessToken).then((result) => {
             alert("완료되었습니다.");
         });
         refreshFunction();

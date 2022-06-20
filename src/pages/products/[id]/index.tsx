@@ -16,7 +16,7 @@ import IconLogo from "../../../assets/common/maeee_icon.png";
 import { useRecoilValue, useRecoilState } from "recoil";
 
 import mobile from "../../../recoil/mobile";
-import { userState } from "../../recoil/atom";
+import { userState } from "../../../recoil/atom";
 import Comment from "../../../components/comment/Comment";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
@@ -42,13 +42,11 @@ export default function Product() {
     const params = useParams();
     const [isWish, setIsWish] = useState<boolean>(false);
     const isMobile = useRecoilValue(mobile);
-    const [user, setUser] = useRecoilState(userState);
-    console.log(user);
+
     const query = useInput("");
     const { data, error } = useSWR(`/product/info/${params.id}`, fetcher);
     const [debounceQuery, setDebounceQuery] = useState<string>("");
-    const [timer, setTimer] = useState<any>(undefined); // 디바운싱 타이머
-    const location = useLocation();
+
     const [productList, setProductList] = useState([]);
 
     const [materials, setMaterials] = useState([]);
@@ -71,8 +69,6 @@ export default function Product() {
         data.data.materials.sort((a, b) => a.orderList - b.orderList);
 
         setMaterials(data.data.materials);
-
-        console.log(data.data.materials);
 
         if (getWishs()?.split(",").includes(String(data.data.id))) {
             setIsWish(true);
