@@ -5,8 +5,9 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState, useResetRecoilState } from "recoil";
-import { userState } from "../recoil/atom";
+import { userState } from "../../recoil/atom";
 import { useNavigate } from "react-router-dom";
+import { fetcher } from "../../fetch/fetcher";
 const data: any = window;
 const { Kakao } = data;
 
@@ -14,15 +15,26 @@ export default function AuthCheck() {
     const navigate = useNavigate();
 
     const { accessToken } = useParams();
-    console.log(accessToken);
     Kakao.Auth.setAccessToken(accessToken);
     const [user, setUser] = useRecoilState(userState);
 
     useEffect(() => {
-        axios.post(`http://localhost:5000/user/getUser`, { accessToken }).then((result) => {
-            setUser(result.data?.data[0]);
-            navigate("/products");
-        });
+        if (accessToken)
+            axios
+                .post(
+                    `http://localhost:5000/user/getUser`,
+                    { accessToken },
+                    {
+                        headers: {
+                            Authorization: accessToken,
+                        },
+                    }
+                )
+                .then((result) => {
+                    setUser({ ...result.data?.data[0], accessToken });
+
+                    navigate("/products");
+                });
     }, []);
 
     return <div></div>;

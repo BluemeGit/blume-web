@@ -6,7 +6,7 @@ import Products from "./pages/products/index.tsx";
 import Product from "./pages/products/[id]/index.tsx";
 import Privacy from "./pages/privacy/index.tsx";
 import mobile from "./recoil/mobile.ts";
-import RecoileTest from "./pages/recoil";
+// import RecoileTest from "./pages/recoiltest";
 import AuthCheck from "./pages/authCheck";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { RecoilRoot, atom, selector, useRecoilState, userRecoilValue } from "recoil";
@@ -38,7 +38,7 @@ const App = () => {
                     <Route path="/products" element={<Products />} />
                     <Route path="/products/:id" element={<Product />} />
                     <Route path="/privacy" element={<Privacy />} />
-                    <Route path="/recoil" element={<RecoileTest />} />
+                    {/* <Route path="/recoil" element={<RecoileTest />} /> */}
                     <Route path="/authCheck/:accessToken" element={<AuthCheck />} />
                 </Routes>
             </BrowserRouter>

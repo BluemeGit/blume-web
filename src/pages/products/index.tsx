@@ -26,7 +26,7 @@ import KakaoLogin from "../../components/common/KakaoLogin";
 import Insta_icon from "../../assets/common/instagram_icon.svg";
 // @ts-ignore
 import Youtube_icon from "../../assets/common/youtube_icon.svg";
-import Footer from "../../components/common/Footer"
+import Footer from "../../components/common/Footer";
 // @ts-ignore
 const { Kakao } = window;
 
@@ -149,10 +149,10 @@ export default function Products() {
                     margin: 90px 20px 90px 20px;
                 `}
             >
-                <a href ="https://www.youtube.com/channel/UCD97T1NyJfkbACBpEQ4rNUQ">
+                <a href="https://www.youtube.com/channel/UCD97T1NyJfkbACBpEQ4rNUQ">
                     <img
-                        src ={Youtube_icon}
-                        css = {css`
+                        src={Youtube_icon}
+                        css={css`
                             position: relative;
                             margin-left: 75px;
                             top: 70%;
@@ -160,22 +160,22 @@ export default function Products() {
                             width: 22px;
                             height: 26px;
                             opacity: 0.5;
-                       `}
+                        `}
                     />
                 </a>
-                <a href ="https://www.instagram.com/3_leaf_official/">
-                   <img
-                       src ={Insta_icon}
-                       css = {css`
-                        position: relative;
-                        margin-left: 10px;
-                        top: 50%;
-                        right: 20px;
-                        width: 18.82px;
-                        height: 18.82px;
-                        opacity : 0.5;
+                <a href="https://www.instagram.com/3_leaf_official/">
+                    <img
+                        src={Insta_icon}
+                        css={css`
+                            position: relative;
+                            margin-left: 10px;
+                            top: 50%;
+                            right: 20px;
+                            width: 18.82px;
+                            height: 18.82px;
+                            opacity: 0.5;
                         `}
-                       />
+                    />
                 </a>
 
                 <a href="/products">
@@ -185,7 +185,7 @@ export default function Products() {
                         css={css`
                             display: flex;
                             text-align: center;
-                            display: block; 
+                            display: block;
                             margin: 0px auto;
                             height: 150px;
                             margin-left: 340px;
@@ -325,8 +325,8 @@ const ToggleButtonPC = styled.p<{ selected?: boolean }>`
 const Container = styled.div``;
 
 const HeaderContainer = styled.div`
-    display : flex;
-    flex: 1 1 2 2
+    display: flex;
+    flex: 1 1 2 2;
 `;
 
 const SearchContainer = styled.div`
