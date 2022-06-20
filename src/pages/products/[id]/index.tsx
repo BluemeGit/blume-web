@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import React, { useEffect, useState } from "react";
-import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 import IconBack from "../../../assets/common/icon_back.svg";
 import IconWishFill from "../../../assets/product/icon-wish-fill.png";
@@ -9,12 +9,14 @@ import IconWishStroke from "../../../assets/product/icon-wish-stroke.png";
 import IconHeartEmpty from "../../../assets/product/icon-heart-empty.svg";
 import IconHeartFill from "../../../assets/product/icon-heart-fill.svg";
 import MaterialBox from "../../../components/products/materials/MaterialBox";
-import {baseURL, fetcher} from "../../../fetch/fetcher";
+import { baseURL, fetcher } from "../../../fetch/fetcher";
 import { addWish, delWish, getWishs } from "../../../utils/localstorage";
 import IconSearch from "../../../assets/common/icon_search.svg";
 import IconLogo from "../../../assets/common/maeee_icon.png";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
+
 import mobile from "../../../recoil/mobile";
+import { userState } from "../../recoil/atom";
 import Comment from "../../../components/comment/Comment";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
@@ -22,6 +24,7 @@ import useInput from "../../../hooks/useInput";
 import KakaoLogin from "../../../components/common/KakaoLogin";
 import Insta_icon from "../../../assets/common/instagram_icon.svg";
 import Youtube_icon from "../../../assets/common/youtube_icon.svg";
+
 import axios from "axios";
 
 type MaterialType = {
@@ -39,6 +42,8 @@ export default function Product() {
     const params = useParams();
     const [isWish, setIsWish] = useState<boolean>(false);
     const isMobile = useRecoilValue(mobile);
+    const [user, setUser] = useRecoilState(userState);
+    console.log(user);
     const query = useInput("");
     const { data, error } = useSWR(`/product/info/${params.id}`, fetcher);
     const [debounceQuery, setDebounceQuery] = useState<string>("");
@@ -192,10 +197,10 @@ export default function Product() {
                     margin: 90px 20px 90px 20px;
                 `}
             >
-                <a href ="https://www.youtube.com/channel/UCD97T1NyJfkbACBpEQ4rNUQ">
+                <a href="https://www.youtube.com/channel/UCD97T1NyJfkbACBpEQ4rNUQ">
                     <img
-                        src ={Youtube_icon}
-                        css = {css`
+                        src={Youtube_icon}
+                        css={css`
                             position: relative;
                             margin-left: 75px;
                             top: 70%;
@@ -203,20 +208,20 @@ export default function Product() {
                             width: 22px;
                             height: 26px;
                             opacity: 0.5;
-                       `}
+                        `}
                     />
                 </a>
-                <a href ="https://www.instagram.com/3_leaf_official/">
+                <a href="https://www.instagram.com/3_leaf_official/">
                     <img
-                        src ={Insta_icon}
-                        css = {css`
-                        position: relative;
-                        margin-left: 10px;
-                        top: 50%;
-                        right: 20px;
-                        width: 18.82px;
-                        height: 18.82px;
-                        opacity : 0.5;
+                        src={Insta_icon}
+                        css={css`
+                            position: relative;
+                            margin-left: 10px;
+                            top: 50%;
+                            right: 20px;
+                            width: 18.82px;
+                            height: 18.82px;
+                            opacity: 0.5;
                         `}
                     />
                 </a>
@@ -228,7 +233,7 @@ export default function Product() {
                         css={css`
                             display: flex;
                             text-align: center;
-                            display: block; 
+                            display: block;
                             margin: 0px auto;
                             height: 150px;
                             margin-left: 340px;
@@ -428,7 +433,7 @@ export default function Product() {
                     </div>
                 </div>
             </article>
-            {/* <Comment /> */}
+            <Comment />
 
             <FooterPC>
                 {"\n"}
@@ -518,10 +523,9 @@ const FooterPC = styled.div`
     width: 80vw;
     font-size: 10px;
     color: #666666;
-`
-
+`;
 
 const HeaderContainer = styled.div`
-    display : flex;
+    display: flex;
     flex: 1 1 2 2;
 `;
