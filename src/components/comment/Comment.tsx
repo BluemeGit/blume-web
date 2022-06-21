@@ -3,21 +3,21 @@ import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import CommentBox from "./CommentBox";
 import { useParams } from "react-router-dom";
-import { fetcher, putter } from "../../fetch/fetcher";
+import { putter } from "../../fetch/fetcher";
 import { userState } from "../../recoil/atom";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 export default function Comment() {
     const [cat, setCat] = useState("orderByLatest");
     const [commentList, setCommentList] = useState<any[]>([]);
     const [description, setDescription] = useState("");
-    const [pageInfo, setPageInfo] = useState<object>({ pageNm: 1, pageSize: 10 });
+    const [pageInfo, setPageInfo] = useState<any>({ pageNm: 1, pageSize: 10, pageEnd: false });
+
     const user = useRecoilValue(userState);
     const params = useParams();
     const onChangeInput = (e: any) => {
         setDescription(e.target.value);
     };
     const onClickSubmit = () => {
-        let commentId: any;
         putter(`/comment/${params.id}`, user.accessToken, { description }).then((result) => {
             commentId = result.data.commentId;
             alert("완료되었습니다.");
@@ -36,8 +36,10 @@ export default function Comment() {
     const onClickSort = (type: any = "orderByLatest") => {
         putter(`/comment/${params.id}?type=${type}`, user.accessToken, pageInfo)
             .then((res) => {
-                setCommentList(res.data);
-                console.log(res.data);
+                if (res.data.length === 0) setPageInfo({ ...pageInfo, pageEnd: true });
+                setCommentList((prev) => {
+                    return [...prev, ...res.data];
+                });
             })
             .catch((err) => {
                 console.log(err);
@@ -45,9 +47,11 @@ export default function Comment() {
     };
     useEffect(() => {
         onClickSort(cat);
-    }, [cat, pageInfo]);
+    }, [cat, pageInfo.pageNm]);
 
-    const onClickPaging = () => {};
+    const onClickPaging = (type: any) => {
+        setPageInfo({ ...pageInfo, pageNm: pageInfo.pageNm + 1 });
+    };
     return (
         <Wrap>
             <input
@@ -81,7 +85,9 @@ export default function Comment() {
                         cursor: "pointer",
                     }}
                     onClick={() => {
+                        setCommentList([]);
                         setCat("orderByLatest");
+                        setPageInfo({ ...pageInfo, pageNm: 1, pageEnd: false });
                     }}
                 >
                     최신순
@@ -92,7 +98,9 @@ export default function Comment() {
                         cursor: "pointer",
                     }}
                     onClick={() => {
+                        setCommentList([]);
                         setCat("orderByRecommend");
+                        setPageInfo({ ...pageInfo, pageNm: 1, pageEnd: false });
                     }}
                 >
                     추천순
@@ -116,7 +124,11 @@ export default function Comment() {
                     })}
             </section>
 
-            <Paging>이전</Paging>
+            <Paging>
+                <ViewMore onClick={() => onClickPaging("next")}>
+                    {!pageInfo.pageEnd && "더보기"}
+                </ViewMore>
+            </Paging>
         </Wrap>
     );
 }
@@ -127,4 +139,10 @@ const Wrap = styled.section`
 
 const Paging = styled.section`
     display: flex;
+    justify-content: center;
+    gap: 1rem;
+`;
+
+const ViewMore = styled.span`
+    cursor: pointer;
 `;
