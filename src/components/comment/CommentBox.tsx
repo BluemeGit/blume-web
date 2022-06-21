@@ -9,18 +9,16 @@ export default function CommentBox({
     indate,
     description,
     onClickLike,
-    refreshFunction,
+    likeCnt,
     commentId,
 }) {
-    const [cat, setCat] = useState("orderByRecommend");
-
     return (
         <div>
             <Wrap>
                 <Nick>{nickname}</Nick>
                 <InnerWrap>
                     <Btn style={{ marginRight: "0.5rem" }} onClick={() => onClickLike(commentId)}>
-                        추천
+                        추천 {likeCnt == 0 ? "" : likeCnt}
                     </Btn>
                     <Btn>신고</Btn>
                 </InnerWrap>

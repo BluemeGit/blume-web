@@ -8,39 +8,46 @@ import { userState } from "../../recoil/atom";
 import { useRecoilValue, useRecoilState } from "recoil";
 export default function Comment() {
     const [cat, setCat] = useState("orderByLatest");
-    const [commentList, setCommentList] = useState([]);
+    const [commentList, setCommentList] = useState<any[]>([]);
     const [description, setDescription] = useState("");
+    const [pageInfo, setPageInfo] = useState<object>({ pageNm: 1, pageSize: 10 });
     const user = useRecoilValue(userState);
     const params = useParams();
     const onChangeInput = (e: any) => {
         setDescription(e.target.value);
     };
     const onClickSubmit = () => {
+        let commentId: any;
         putter(`/comment/${params.id}`, user.accessToken, { description }).then((result) => {
+            commentId = result.data.commentId;
             alert("완료되었습니다.");
         });
-        refreshFunction();
+
+        window.location.reload();
     };
 
     const onClickLike = (commentId: any) => {
         putter(`/comment/like/${commentId}`, user.accessToken).then((result) => {
             console.log(result.data);
         });
+        window.location.reload();
     };
 
-    //수정필요
-    const refreshFunction: any = () => {
-        setDescription("");
-    };
-    useEffect(() => {
-        fetcher(`/comment/${params.id}?type=orderByLatest`, user.accessToken)
+    const onClickSort = (type: any = "orderByLatest") => {
+        putter(`/comment/${params.id}?type=${type}`, user.accessToken, pageInfo)
             .then((res) => {
                 setCommentList(res.data);
+                console.log(res.data);
             })
             .catch((err) => {
                 console.log(err);
             });
-    }, []);
+    };
+    useEffect(() => {
+        onClickSort(cat);
+    }, [cat, pageInfo]);
+
+    const onClickPaging = () => {};
     return (
         <Wrap>
             <input
@@ -96,22 +103,28 @@ export default function Comment() {
                     commentList?.map((item: any) => {
                         return (
                             <CommentBox
+                                likeCnt={item.empathy}
                                 commentId={item.id}
                                 userId={item.userId}
                                 nickname={item.nickname}
                                 indate={item.indate}
                                 description={item.description}
                                 key={item.id}
-                                refreshFunction={refreshFunction}
                                 onClickLike={onClickLike}
                             />
                         );
                     })}
             </section>
+
+            <Paging>이전</Paging>
         </Wrap>
     );
 }
 
 const Wrap = styled.section`
     min-width: 1200px;
+`;
+
+const Paging = styled.section`
+    display: flex;
 `;
