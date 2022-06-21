@@ -27,10 +27,15 @@ export default function Comment() {
         setDescription("");
     };
     useEffect(() => {
-        fetcher(`/comment/${params.id}`).then((res) => {
-            console.log(res.data.data);
-            setCommentList(res.data);
-        });
+        fetcher(`/comment/${params.id}`, user.accessToken)
+            .then((res) => {
+                console.log("hihi");
+                console.log(res.data.data);
+                setCommentList(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, []);
     return (
         <Wrap>

@@ -33,7 +33,6 @@ export default function KakaoLogin() {
             return;
         }
         Kakao.Auth.setAccessToken(null);
-        console.log("Sign out");
         window.location.href = "/products";
     };
 
