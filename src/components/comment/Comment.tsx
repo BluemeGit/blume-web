@@ -7,30 +7,34 @@ import { fetcher, putter } from "../../fetch/fetcher";
 import { userState } from "../../recoil/atom";
 import { useRecoilValue, useRecoilState } from "recoil";
 export default function Comment() {
-    const [cat, setCat] = useState("orderByRecommend");
+    const [cat, setCat] = useState("orderByLatest");
     const [commentList, setCommentList] = useState([]);
     const [description, setDescription] = useState("");
     const user = useRecoilValue(userState);
     const params = useParams();
-    const onChangeInput = (e) => {
+    const onChangeInput = (e: any) => {
         setDescription(e.target.value);
     };
     const onClickSubmit = () => {
-        putter(`/comment/${params.id}`, { description }, user.accessToken).then((result) => {
+        putter(`/comment/${params.id}`, user.accessToken, { description }).then((result) => {
             alert("완료되었습니다.");
         });
         refreshFunction();
     };
 
+    const onClickLike = (commentId: any) => {
+        putter(`/comment/like/${commentId}`, user.accessToken).then((result) => {
+            console.log(result.data);
+        });
+    };
+
     //수정필요
-    const refreshFunction = () => {
+    const refreshFunction: any = () => {
         setDescription("");
     };
     useEffect(() => {
-        fetcher(`/comment/${params.id}`, user.accessToken)
+        fetcher(`/comment/${params.id}?type=orderByLatest`, user.accessToken)
             .then((res) => {
-                console.log("hihi");
-                console.log(res.data.data);
                 setCommentList(res.data);
             })
             .catch((err) => {
@@ -40,7 +44,7 @@ export default function Comment() {
     return (
         <Wrap>
             <input
-                style={{ width: "100%", height: "5rem", marignTop: "4rem" }}
+                style={{ width: "100%", height: "5rem", marginTop: "4rem" }}
                 placeholder="제품에 대한 후기/의견/댓글을 자유롭게 써주시되 욕설, 모욕, 비방은 자제해주세요!"
                 onChange={onChangeInput}
             ></input>
@@ -66,17 +70,6 @@ export default function Comment() {
                 <span
                     style={{
                         marginRight: "0.5rem",
-                        color: cat === "orderByRecommend" ? "rgb(30, 209, 84)" : "black",
-                        cursor: "pointer",
-                    }}
-                    onClick={() => {
-                        setCat("orderByRecommend");
-                    }}
-                >
-                    추천순
-                </span>
-                <span
-                    style={{
                         color: cat === "orderByLatest" ? "rgb(30, 209, 84)" : "black",
                         cursor: "pointer",
                     }}
@@ -86,19 +79,31 @@ export default function Comment() {
                 >
                     최신순
                 </span>
+                <span
+                    style={{
+                        color: cat === "orderByRecommend" ? "rgb(30, 209, 84)" : "black",
+                        cursor: "pointer",
+                    }}
+                    onClick={() => {
+                        setCat("orderByRecommend");
+                    }}
+                >
+                    추천순
+                </span>
             </section>
             <section>
                 {commentList.length > 0 &&
-                    commentList?.map((item) => {
+                    commentList?.map((item: any) => {
                         return (
                             <CommentBox
+                                commentId={item.id}
                                 userId={item.userId}
                                 nickname={item.nickname}
-                                content={item.content}
                                 indate={item.indate}
                                 description={item.description}
                                 key={item.id}
                                 refreshFunction={refreshFunction}
+                                onClickLike={onClickLike}
                             />
                         );
                     })}

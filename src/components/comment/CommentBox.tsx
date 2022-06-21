@@ -3,7 +3,15 @@ import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import { timeForToday } from "../../utils/timeForToday";
 
-export default function CommentBox({ userId, nickname, indate, description }) {
+export default function CommentBox({
+    userId,
+    nickname,
+    indate,
+    description,
+    onClickLike,
+    refreshFunction,
+    commentId,
+}) {
     const [cat, setCat] = useState("orderByRecommend");
 
     return (
@@ -11,7 +19,9 @@ export default function CommentBox({ userId, nickname, indate, description }) {
             <Wrap>
                 <Nick>{nickname}</Nick>
                 <InnerWrap>
-                    <Btn style={{ marginRight: "0.5rem" }}>추천</Btn>
+                    <Btn style={{ marginRight: "0.5rem" }} onClick={() => onClickLike(commentId)}>
+                        추천
+                    </Btn>
                     <Btn>신고</Btn>
                 </InnerWrap>
             </Wrap>

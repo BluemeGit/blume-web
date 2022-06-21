@@ -15,7 +15,7 @@ export const fetcher = (url: string, authToken: string) =>
         })
         .then((res) => res.data);
 
-export const putter = (url: string, data: object, authToken: string) =>
+export const putter = (url: string, authToken: string, data: any = null) =>
     axios
         .put(baseURL + url, data, {
             headers: {
