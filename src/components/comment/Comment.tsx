@@ -18,13 +18,10 @@ export default function Comment() {
         setDescription(e.target.value);
     };
     const onClickSubmit = () => {
-        let commentId: any;
-        putter(`/comment/${params.id}`, user.accessToken, { description }).then((result) => {
-            commentId = result.data.commentId;
+        poster(`/comment/${params.id}`, user.accessToken, { description }).then((result) => {
             alert("완료되었습니다.");
+            window.location.reload();
         });
-
-        window.location.reload();
     };
 
     const onClickLike = (commentId: any) => {

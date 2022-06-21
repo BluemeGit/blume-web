@@ -33,7 +33,6 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "postbuild": "rm -rf ../maeee_api/build && mv build ../maeee_api",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
