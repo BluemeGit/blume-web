@@ -6,10 +6,9 @@ import Products from "./pages/products/index.tsx";
 import Product from "./pages/products/[id]/index.tsx";
 import Privacy from "./pages/privacy/index.tsx";
 import mobile from "./recoil/mobile.ts";
-// import RecoileTest from "./pages/recoiltest";
 import AuthCheck from "./pages/authCheck";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { RecoilRoot, atom, selector, useRecoilState, userRecoilValue } from "recoil";
+import { RecoilRoot } from "recoil";
 
 const App = () => {
     const setMobile = useSetRecoilState(mobile);
