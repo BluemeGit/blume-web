@@ -23,3 +23,12 @@ export const putter = (url: string, authToken: string, data: any = null) =>
             },
         })
         .then((res) => res.data);
+
+export const poster = (url: string, authToken: string, data: any = null) =>
+    axios
+        .post(baseURL + url, data, {
+            headers: {
+                Authorization: authToken,
+            },
+        })
+        .then((res) => res.data);

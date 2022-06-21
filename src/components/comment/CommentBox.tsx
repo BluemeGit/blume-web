@@ -11,6 +11,7 @@ export default function CommentBox({
     onClickLike,
     likeCnt,
     commentId,
+    onClickReport,
 }) {
     return (
         <div>
@@ -20,7 +21,7 @@ export default function CommentBox({
                     <Btn style={{ marginRight: "0.5rem" }} onClick={() => onClickLike(commentId)}>
                         추천 {likeCnt == 0 ? "" : likeCnt}
                     </Btn>
-                    <Btn>신고</Btn>
+                    <Btn onClick={() => onClickReport(commentId)}>신고</Btn>
                 </InnerWrap>
             </Wrap>
             <CreatedAt>{timeForToday(indate)}</CreatedAt>

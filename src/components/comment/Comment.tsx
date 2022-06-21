@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import CommentBox from "./CommentBox";
 import { useParams } from "react-router-dom";
-import { putter } from "../../fetch/fetcher";
+import { poster, putter } from "../../fetch/fetcher";
 import { userState } from "../../recoil/atom";
 import { useRecoilValue } from "recoil";
 export default function Comment() {
@@ -18,6 +18,7 @@ export default function Comment() {
         setDescription(e.target.value);
     };
     const onClickSubmit = () => {
+        let commentId: any;
         putter(`/comment/${params.id}`, user.accessToken, { description }).then((result) => {
             commentId = result.data.commentId;
             alert("완료되었습니다.");
@@ -44,6 +45,12 @@ export default function Comment() {
             .catch((err) => {
                 console.log(err);
             });
+    };
+    const onClickReport = (commentId: any) => {
+        const body = { commentId };
+        poster(`/comment/report`, user.accessToken, body).then((result) => {
+            alert("신고 완료되었습니다");
+        });
     };
     useEffect(() => {
         onClickSort(cat);
@@ -119,6 +126,7 @@ export default function Comment() {
                                 description={item.description}
                                 key={item.id}
                                 onClickLike={onClickLike}
+                                onClickReport={onClickReport}
                             />
                         );
                     })}
