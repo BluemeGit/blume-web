@@ -37,7 +37,6 @@ const App = () => {
                     <Route path="/products" element={<Products />} />
                     <Route path="/products/:id" element={<Product />} />
                     <Route path="/privacy" element={<Privacy />} />
-                    {/* <Route path="/recoil" element={<RecoileTest />} /> */}
                     <Route path="/authCheck/:accessToken" element={<AuthCheck />} />
                 </Routes>
             </BrowserRouter>
