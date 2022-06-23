@@ -3,6 +3,8 @@ import React, { Component } from "react";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 // @ts-ignore
+import { useRecoilState } from "recoil";
+import { userState } from "../../recoil/atom";
 import icon from "../../assets/common/kakao_login_small.png";
 import { baseURL } from "../../fetch/fetcher";
 import axios from "axios";
@@ -11,6 +13,8 @@ import styled from "@emotion/styled";
 const { Kakao } = window;
 
 export default function KakaoLogin() {
+
+    const [user, setUser] = useRecoilState(userState)
     const kakaoLogin = async (res: Response, req: Request) => {
         try {
             if (Kakao.Auth.getAccessToken() == null) {
@@ -23,7 +27,6 @@ export default function KakaoLogin() {
             console.log(err);
         }
         console.log("Sign in");
-        Kakao.Auth.setAccessToken("access_token");
         return;
     };
 
@@ -33,6 +36,10 @@ export default function KakaoLogin() {
             return;
         }
         Kakao.Auth.setAccessToken(null);
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        setUser(null)
+        console.log(user);
+        
         window.location.href = "/products";
     };
 
