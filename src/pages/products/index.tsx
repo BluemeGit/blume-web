@@ -44,7 +44,6 @@ type AdsType = {
 export default function Products() {
     const query = useInput("");
     const [debounceQuery, setDebounceQuery] = useState<string>("");
-    const [timer, setTimer] = useState<any>(undefined); // 디바운싱 타이머
     const [isWish, setIsWish] = useState<boolean>(false);
     const isMobile = useRecoilValue(mobile);
     const location = useLocation();
@@ -59,13 +58,13 @@ export default function Products() {
         }
         setDebounceQuery(query.value);
         onSubmit(query.value);
-    }, []);
+    }, [query.value]);
 
     const onSubmit = (query = undefined) => {
-        console.log(query);
-
         axios.get(`${baseURL}/product/search?query=${query || debounceQuery}`).then((result) => {
             setProductList(result.data.data);
+            query = "";
+            console.log(result.data);
         });
     };
 
@@ -79,10 +78,6 @@ export default function Products() {
         setDebounceQuery(e.target.value);
     };
 
-    // const { data: products, error: productError } = useSWR(
-    //     `/product/search?query=${debounceQuery}`,
-    //     fetcher
-    // );
     const { data: ads, error: adError } = useSWR("/product/ads", fetcher);
 
     if (isMobile) {
