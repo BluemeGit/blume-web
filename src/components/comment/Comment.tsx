@@ -21,7 +21,7 @@ export default function Comment() {
     const onClickSubmit = () => {
         if (!user?.accessToken) alert("로그인이 필요합니다.");
         else {
-            poster(`/comment/${params.id}`, user.accessToken, { description })
+            poster(`/comment/${params.id}`, user?.accessToken, { description })
                 .then((result) => {
                     alert("완료되었습니다.");
                     window.location.reload();
@@ -35,7 +35,7 @@ export default function Comment() {
     const onClickLike = (commentId: any) => {
         if (!user?.accessToken) alert("로그인이 필요합니다.");
         else {
-            putter(`/comment/like/${commentId}`, user.accessToken).then((result) => {
+            putter(`/comment/like/${commentId}`, user?.accessToken).then((result) => {
                 console.log(result.data);
             });
             window.location.reload();
@@ -43,17 +43,18 @@ export default function Comment() {
     };
 
     const onClickSort = (type: any = "orderByLatest") => {
-        putter(`/comment/${params.id}?type=${type}`, user.accessToken, pageInfo)
-            .then((res) => {
-                if (res.data.length === 0 || res.data.length < 10)
-                    setPageInfo({ ...pageInfo, pageEnd: true });
-                setCommentList((prev) => {
-                    return [...prev, ...res.data];
+        if(user)
+            putter(`/comment/${params.id}?type=${type}`, user.accessToken, pageInfo)
+                .then((res) => {
+                    if (res.data.length === 0 || res.data.length < 10)
+                        setPageInfo({ ...pageInfo, pageEnd: true });
+                    setCommentList((prev) => {
+                        return [...prev, ...res.data];
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
     };
     const onClickReport = (commentId: any) => {
         const body = { commentId };
