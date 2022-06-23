@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import Home from "./pages/home/index.tsx";
 import User from "./components/common/KakaoLogin";
 import Products from "./pages/products/index.tsx";
@@ -26,22 +26,21 @@ const App = () => {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    });
+    }, [window.innerWidth]);
 
     return (
-        <RecoilRoot>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/user/kakao/auth" element={<User />} />
-                    <Route path="/products" element={<Products />} />
-                    <Route path="/products/:id" element={<Product />} />
-                    <Route path="/privacy" element={<Privacy />} />
-                    {/* <Route path="/recoil" element={<RecoileTest />} /> */}
-                    <Route path="/authCheck/:accessToken" element={<AuthCheck />} />
-                </Routes>
-            </BrowserRouter>
-        </RecoilRoot>
+        <BrowserRouter>
+            {/* <RecoilRoot> */}
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/user/kakao/auth" element={<User />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/products/:id" element={<Product />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/authCheck/:accessToken" element={<AuthCheck />} />
+            </Routes>
+            {/* </RecoilRoot> */}
+        </BrowserRouter>
     );
 };
 

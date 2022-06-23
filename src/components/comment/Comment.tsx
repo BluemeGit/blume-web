@@ -13,28 +13,40 @@ export default function Comment() {
     const [pageInfo, setPageInfo] = useState<any>({ pageNm: 1, pageSize: 10, pageEnd: false });
 
     const user = useRecoilValue(userState);
+    console.log(user);
     const params = useParams();
     const onChangeInput = (e: any) => {
         setDescription(e.target.value);
     };
     const onClickSubmit = () => {
-        poster(`/comment/${params.id}`, user.accessToken, { description }).then((result) => {
-            alert("완료되었습니다.");
-            window.location.reload();
-        });
+        if (!user?.accessToken) alert("로그인이 필요합니다.");
+        else {
+            poster(`/comment/${params.id}`, user.accessToken, { description })
+                .then((result) => {
+                    alert("완료되었습니다.");
+                    window.location.reload();
+                })
+                .catch((err) => {
+                    alert("실패했습니다.");
+                });
+        }
     };
 
     const onClickLike = (commentId: any) => {
-        putter(`/comment/like/${commentId}`, user.accessToken).then((result) => {
-            console.log(result.data);
-        });
-        window.location.reload();
+        if (!user?.accessToken) alert("로그인이 필요합니다.");
+        else {
+            putter(`/comment/like/${commentId}`, user.accessToken).then((result) => {
+                console.log(result.data);
+            });
+            window.location.reload();
+        }
     };
 
     const onClickSort = (type: any = "orderByLatest") => {
         putter(`/comment/${params.id}?type=${type}`, user.accessToken, pageInfo)
             .then((res) => {
-                if (res.data.length === 0) setPageInfo({ ...pageInfo, pageEnd: true });
+                if (res.data.length === 0 || res.data.length < 10)
+                    setPageInfo({ ...pageInfo, pageEnd: true });
                 setCommentList((prev) => {
                     return [...prev, ...res.data];
                 });
@@ -81,35 +93,37 @@ export default function Comment() {
                     등록
                 </span>
             </div>
-            <section style={{ display: "flex", justifyContent: "center" }}>
-                <span
-                    style={{
-                        marginRight: "0.5rem",
-                        color: cat === "orderByLatest" ? "rgb(30, 209, 84)" : "black",
-                        cursor: "pointer",
-                    }}
-                    onClick={() => {
-                        setCommentList([]);
-                        setCat("orderByLatest");
-                        setPageInfo({ ...pageInfo, pageNm: 1, pageEnd: false });
-                    }}
-                >
-                    최신순
-                </span>
-                <span
-                    style={{
-                        color: cat === "orderByRecommend" ? "rgb(30, 209, 84)" : "black",
-                        cursor: "pointer",
-                    }}
-                    onClick={() => {
-                        setCommentList([]);
-                        setCat("orderByRecommend");
-                        setPageInfo({ ...pageInfo, pageNm: 1, pageEnd: false });
-                    }}
-                >
-                    추천순
-                </span>
-            </section>
+            {commentList.length > 0 && (
+                <section style={{ display: "flex", justifyContent: "center" }}>
+                    <span
+                        style={{
+                            marginRight: "0.5rem",
+                            color: cat === "orderByLatest" ? "rgb(30, 209, 84)" : "black",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => {
+                            setCommentList([]);
+                            setCat("orderByLatest");
+                            setPageInfo({ ...pageInfo, pageNm: 1, pageEnd: false });
+                        }}
+                    >
+                        최신순
+                    </span>
+                    <span
+                        style={{
+                            color: cat === "orderByRecommend" ? "rgb(30, 209, 84)" : "black",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => {
+                            setCommentList([]);
+                            setCat("orderByRecommend");
+                            setPageInfo({ ...pageInfo, pageNm: 1, pageEnd: false });
+                        }}
+                    >
+                        추천순
+                    </span>
+                </section>
+            )}
             <section>
                 {commentList.length > 0 &&
                     commentList?.map((item: any) => {
@@ -131,7 +145,7 @@ export default function Comment() {
 
             <Paging>
                 <ViewMore onClick={() => onClickPaging("next")}>
-                    {!pageInfo.pageEnd && "더보기"}
+                    {!pageInfo.pageEnd && commentList.length > 0 && "더보기"}
                 </ViewMore>
             </Paging>
         </Wrap>
