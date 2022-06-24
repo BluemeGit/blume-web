@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import React, { useEffect} from "react";
+import { useSetRecoilState } from "recoil";
 import Home from "./pages/home/index.tsx";
 import User from "./components/common/KakaoLogin";
 import Products from "./pages/products/index.tsx";
 import Product from "./pages/products/[id]/index.tsx";
 import Privacy from "./pages/privacy/index.tsx";
-import mobile from "./recoil/mobile.ts";
+import { mobile } from "./recoil/atom";
 import AuthCheck from "./pages/authCheck";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { RecoilRoot } from "recoil";
 
 const App = () => {
     const setMobile = useSetRecoilState(mobile);
@@ -30,7 +29,6 @@ const App = () => {
 
     return (
         <BrowserRouter>
-            {/* <RecoilRoot> */}
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/user/kakao/auth" element={<User />} />
@@ -39,7 +37,6 @@ const App = () => {
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/authCheck/:accessToken" element={<AuthCheck />} />
             </Routes>
-            {/* </RecoilRoot> */}
         </BrowserRouter>
     );
 };

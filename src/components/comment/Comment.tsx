@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { poster, putter } from "../../fetch/fetcher";
 import { userState } from "../../recoil/atom";
 import { useRecoilValue } from "recoil";
+
 export default function Comment() {
     const [cat, setCat] = useState("orderByLatest");
     const [commentList, setCommentList] = useState<any[]>([]);
@@ -70,7 +71,7 @@ export default function Comment() {
         setPageInfo({ ...pageInfo, pageNm: pageInfo.pageNm + 1 });
     };
     return (
-        <Wrap>
+        <div>
             <input
                 style={{ width: "100%", height: "5rem", marginTop: "4rem" }}
                 placeholder="제품에 대한 후기/의견/댓글을 자유롭게 써주시되 욕설, 모욕, 비방은 자제해주세요!"
@@ -149,13 +150,9 @@ export default function Comment() {
                     {!pageInfo.pageEnd && commentList.length > 0 && "더보기"}
                 </ViewMore>
             </Paging>
-        </Wrap>
+        </div>
     );
 }
-
-const Wrap = styled.section`
-    min-width: 1200px;
-`;
 
 const Paging = styled.section`
     display: flex;

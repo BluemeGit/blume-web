@@ -23,7 +23,7 @@ import Text from '../../components/common/Text';
 import Image from '../../components/common/Image';
 import Input from '../../components/common/Input';
 import { useRecoilValue } from 'recoil';
-import mobile from '../../recoil/mobile';
+import { mobile } from '../../recoil/atom';
 import { useNavigate } from 'react-router-dom';
 import MobileHeader from '../../components/common/mobile/MobileHeader';
 

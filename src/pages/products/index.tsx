@@ -14,7 +14,7 @@ import IconSearch from "../../assets/common/icon_search.svg";
 import IconLogo from "../../assets/common/maeee_icon.png";
 import { getWishs } from "../../utils/localstorage";
 import { useLocation, useNavigate } from "react-router-dom";
-import mobile from "../../recoil/mobile";
+import { mobile } from "../../recoil/atom";
 import { useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
 /** @jsxImportSource @emotion/react */
