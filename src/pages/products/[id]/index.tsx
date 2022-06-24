@@ -465,7 +465,8 @@ const CommentBox = styled.section`
     min-width: 1200px;
 `;
 
-const CommentMobile = styled.section`
+const CommentMobile = styled.div`
+    margin-left : 100px
     min-width: 10px;
 `;
 

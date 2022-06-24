@@ -70,10 +70,11 @@ export default function Comment() {
     const onClickPaging = (type: any) => {
         setPageInfo({ ...pageInfo, pageNm: pageInfo.pageNm + 1 });
     };
+
     return (
         <div>
             <input
-                style={{ width: "100%", height: "5rem", marginTop: "4rem" }}
+                style={{ width: "97%", height: "5rem", margin: "10px" }}
                 placeholder="제품에 대한 후기/의견/댓글을 자유롭게 써주시되 욕설, 모욕, 비방은 자제해주세요!"
                 onChange={onChangeInput}
             ></input>
@@ -86,7 +87,7 @@ export default function Comment() {
                         borderRadius: "5px",
                         fontWeight: "bold",
                         color: "white",
-                        marginTop: "0.3rem",
+                        margin: "10px",
                         fontSize: "0.9rem",
                         cursor: "pointer",
                     }}

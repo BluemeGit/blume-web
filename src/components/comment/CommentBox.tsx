@@ -14,7 +14,7 @@ export default function CommentBox({
     onClickReport,
 }) {
     return (
-        <div>
+        <Conatiner>
             <Wrap>
                 <Nick>{nickname}</Nick>
                 <InnerWrap>
@@ -27,9 +27,13 @@ export default function CommentBox({
             <CreatedAt>{timeForToday(indate)}</CreatedAt>
             <Content>{description}</Content>
             <FinishLine></FinishLine>
-        </div>
+        </Conatiner>
     );
 }
+
+const Conatiner = styled.div`
+    padding : 10px;
+`;
 
 const Nick = styled.div`
     font-weight: bold;
