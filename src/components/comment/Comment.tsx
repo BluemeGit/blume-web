@@ -73,28 +73,36 @@ export default function Comment() {
 
     return (
         <div>
+           
+            <div style={{ display: "flex", alignItems : "end",margin : "10px"}}>
+
             <input
-                style={{ width: "97%", height: "5rem", margin: "10px" }}
+                style={{ width: "100%", height: "5rem" }}
                 placeholder="제품에 대한 후기/의견/댓글을 자유롭게 써주시되 욕설, 모욕, 비방은 자제해주세요!"
                 onChange={onChangeInput}
             ></input>
-            <div style={{ display: "flex" }}>
                 <span
                     style={{
-                        marginLeft: "auto",
                         backgroundColor: "#1ED154",
                         padding: "0.3rem 0.5rem",
                         borderRadius: "5px",
                         fontWeight: "bold",
                         color: "white",
-                        margin: "10px",
+                        alignItems : "center",
+
+                        // margin: "10px",
+                        marginLeft: "10px",
                         fontSize: "0.9rem",
                         cursor: "pointer",
+                        maxHeight : "2rem",
+                        minWidth: "3rem"
+
                     }}
                     onClick={onClickSubmit}
                 >
                     등록
                 </span>
+          
             </div>
             {commentList.length > 0 && (
                 <section style={{ display: "flex", justifyContent: "center" }}>

@@ -13,8 +13,7 @@ import styled from "@emotion/styled";
 const { Kakao } = window;
 
 export default function KakaoLogin() {
-
-    const [user, setUser] = useRecoilState(userState)
+    const [user, setUser] = useRecoilState(userState);
     const kakaoLogin = async (res: Response, req: Request) => {
         try {
             if (Kakao.Auth.getAccessToken() == null) {
@@ -37,9 +36,9 @@ export default function KakaoLogin() {
         }
         Kakao.Auth.setAccessToken(null);
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        setUser(null)
+        setUser(null);
         console.log(user);
-        
+
         window.location.href = "/products";
     };
 
@@ -59,6 +58,7 @@ export default function KakaoLogin() {
 }
 
 const Login = styled.div`
+    test-align: right;
     height: 30px;
     margin-left: 340px;
     cursor: pointer;
@@ -66,6 +66,7 @@ const Login = styled.div`
 const Logout = styled.div`
     height: 30px;
     margin-left: 340px;
+    padding: 10px;
     color: gray;
     font-size: small;
     cursor: pointer;

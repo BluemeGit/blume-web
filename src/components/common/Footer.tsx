@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { mobile } from '../../recoil/atom';
+import { mobile }from '../../recoil/atom';
 export default function Footer () {
     const isMobile = useRecoilValue(mobile);
     
