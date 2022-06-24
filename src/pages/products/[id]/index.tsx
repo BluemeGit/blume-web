@@ -1,7 +1,12 @@
 import styled from "@emotion/styled";
 
 import React, { useEffect, useState } from "react";
-import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+    Navigate,
+    useLocation,
+    useNavigate,
+    useParams,
+} from "react-router-dom";
 import useSWR from "swr";
 import IconBack from "../../../assets/common/icon_back.svg";
 import IconWishFill from "../../../assets/product/icon-wish-fill.png";
@@ -96,9 +101,11 @@ export default function Product() {
     const onSubmit = (query = undefined) => {
         console.log(query);
 
-        axios.get(`${baseURL}/product/search?query=${query || debounceQuery}`).then((result) => {
-            setProductList(result.data.data);
-        });
+        axios
+            .get(`${baseURL}/product/search?query=${query || debounceQuery}`)
+            .then((result) => {
+                setProductList(result.data.data);
+            });
     };
 
     const onClickSubmit = (e: any) => {
@@ -124,36 +131,48 @@ export default function Product() {
                 </Header>
                 <ProductContainer>
                     <ProductImage
-                        src={"https://kr.object.ncloudstorage.com/blume/" + data.data.imageUrl}
+                        src={
+                            "https://kr.object.ncloudstorage.com/blume/" +
+                            data.data.imageUrl
+                        }
                     />
                     <ProductTitle>{data.data.trans_name}</ProductTitle>
                 </ProductContainer>
                 <MaterialContainer>
                     <MaterialTitle>구조별 전 소재 성분 정보</MaterialTitle>
-                    {materials.map((materialObject: MaterialObjectType, idx: number) => (
-                        <div key={idx}>
-                            <MaterialMenu>{materialObject.type}</MaterialMenu>
-                            {materialObject.list.map((material: MaterialType) => (
-                                <MaterialBox
-                                    key={material.title}
-                                    title={material.title}
-                                    description={material.description}
-                                />
-                            ))}
-                        </div>
-                    ))}
+                    {materials.map(
+                        (materialObject: MaterialObjectType, idx: number) => (
+                            <div key={idx}>
+                                <MaterialMenu>
+                                    {materialObject.type}
+                                </MaterialMenu>
+                                {materialObject.list.map(
+                                    (material: MaterialType) => (
+                                        <MaterialBox
+                                            key={material.title}
+                                            title={material.title}
+                                            description={material.description}
+                                        />
+                                    )
+                                )}
+                            </div>
+                        )
+                    )}
                 </MaterialContainer>
                 <CommentMobile>
                     <Comment />
                 </CommentMobile>
                 <Footer>
-                    1. 서비스 내 모든 성분 해석 정보는 세잎의 단순 ‘의견’입니다.{"\n"}
-                    2. 성분 해석 정보는 제품 구매를 위한 참고 정보이며, 법적 책임을 지지 않습니다.
+                    1. 서비스 내 모든 성분 해석 정보는 세잎의 단순 ‘의견’입니다.
                     {"\n"}
-                    3. 데이터의 오류가 있을 수 있습니다. 제품 구매 전 제조판매업자가 표기한 전성분
-                    표를 한 번 더 확인하시길 권장합니다.{"\n"}
-                    4. 세잎의 성분 해석 정보를 허가 없이 상업적으로 활용할 경우, 법적 조치를 받을 수
-                    있습니다.{"\n"}
+                    2. 성분 해석 정보는 제품 구매를 위한 참고 정보이며, 법적
+                    책임을 지지 않습니다.
+                    {"\n"}
+                    3. 데이터의 오류가 있을 수 있습니다.
+                    {"\n"}제품 구매 전 제조판매업자가 표기한 전성분 표를 한 번
+                    더 확인하시길 권장합니다.{"\n"}
+                    4. 세잎의 성분 해석 정보를 허가 없이 상업적으로 활용할 경우,
+                    법적 조치를 받을 수 있습니다.{"\n"}
                 </Footer>
                 <div
                     style={{
@@ -168,7 +187,11 @@ export default function Product() {
                     }}
                 >
                     <a
-                        style={{ color: "white", fontWeight: "bold", textDecoration: "none" }}
+                        style={{
+                            color: "white",
+                            fontWeight: "bold",
+                            textDecoration: "none",
+                        }}
                         href={`https://search.shopping.naver.com/search/all?query=${data.data.trans_name}`}
                     >
                         최저가 검색
@@ -289,7 +312,10 @@ export default function Product() {
                 `}
             >
                 <img
-                    src={"https://kr.object.ncloudstorage.com/blume/" + data.data.imageUrl}
+                    src={
+                        "https://kr.object.ncloudstorage.com/blume/" +
+                        data.data.imageUrl
+                    }
                     alt={"상품 사진"}
                     css={css`
                         display: block;
@@ -329,34 +355,44 @@ export default function Product() {
                     </p>
                     <div>
                         {materials?.length > 0 &&
-                            materials?.map((materialObject: MaterialObjectType, idx: number) => (
-                                <div
-                                    key={idx}
-                                    css={css`
-                                        border-top: 1px solid #f4f4f4;
-                                        border-bottom: 1px solid #f4f4f4;
-                                    `}
-                                >
-                                    <p
+                            materials?.map(
+                                (
+                                    materialObject: MaterialObjectType,
+                                    idx: number
+                                ) => (
+                                    <div
+                                        key={idx}
                                         css={css`
-                                            font-size: 20px;
-                                            color: #666666;
+                                            border-top: 1px solid #f4f4f4;
+                                            border-bottom: 1px solid #f4f4f4;
                                         `}
                                     >
-                                        {materialObject.type}
-                                    </p>
+                                        <p
+                                            css={css`
+                                                font-size: 20px;
+                                                color: #666666;
+                                            `}
+                                        >
+                                            {materialObject.type}
+                                        </p>
 
-                                    {materialObject.list.map(
-                                        (material: MaterialType, id: number) => (
-                                            <MaterialBox
-                                                key={id}
-                                                title={material.title}
-                                                description={material.description}
-                                            />
-                                        )
-                                    )}
-                                </div>
-                            ))}
+                                        {materialObject.list.map(
+                                            (
+                                                material: MaterialType,
+                                                id: number
+                                            ) => (
+                                                <MaterialBox
+                                                    key={id}
+                                                    title={material.title}
+                                                    description={
+                                                        material.description
+                                                    }
+                                                />
+                                            )
+                                        )}
+                                    </div>
+                                )
+                            )}
                     </div>
 
                     <div
@@ -435,18 +471,19 @@ export default function Product() {
             <CommentBox>
                 <Comment />
             </CommentBox>
-            
 
             <FooterPC>
                 {"\n"}
                 {"\n"}
                 {"\n"}
-                1. 서비스 내 모든 성분 해석 정보는 세잎의 단순 ‘의견’입니다.{"\n"}
-                2. 성분 해석 정보는 제품 구매를 위한 참고 정보이며, 법적 책임을 지지 않습니다.{"\n"}
-                3. 데이터의 오류가 있을 수 있습니다. 제품 구매 전 제조판매업자가 표기한 전성분 표를
-                한 번 더 확인하시길 권장합니다.{"\n"}
-                4. 세잎의 성분 해석 정보를 허가 없이 상업적으로 활용할 경우, 법적 조치를 받을 수
-                있습니다.{"\n"}
+                1. 서비스 내 모든 성분 해석 정보는 세잎의 단순 ‘의견’입니다.
+                {"\n"}
+                2. 성분 해석 정보는 제품 구매를 위한 참고 정보이며, 법적 책임을
+                지지 않습니다.{"\n"}
+                3. 데이터의 오류가 있을 수 있습니다. 제품 구매 전 제조판매업자가
+                표기한 전성분 표를 한 번 더 확인하시길 권장합니다.{"\n"}
+                4. 세잎의 성분 해석 정보를 허가 없이 상업적으로 활용할 경우,
+                법적 조치를 받을 수 있습니다.{"\n"}
                 {"\n"}
                 {"\n"}
                 {"\n"}
