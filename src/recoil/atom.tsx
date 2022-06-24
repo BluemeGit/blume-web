@@ -23,4 +23,9 @@ let userState = atom({
     effects_UNSTABLE: [persistAtom],
 });
 
-export { countState, inputState, userState };
+let mobile = atom({
+    key: "mobile", // unique ID (with respect to other atoms/selectors)
+    default: true, // default value (aka initial value)
+    effects_UNSTABLE: [persistAtom],
+});
+export { countState, inputState, userState, mobile };

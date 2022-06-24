@@ -15,8 +15,7 @@ import IconSearch from "../../../assets/common/icon_search.svg";
 import IconLogo from "../../../assets/common/maeee_icon.png";
 import { useRecoilValue, useRecoilState } from "recoil";
 
-import mobile from "../../../recoil/mobile";
-import { userState } from "../../../recoil/atom";
+import { mobile } from "../../../recoil/atom";
 import Comment from "../../../components/comment/Comment";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
@@ -121,6 +120,7 @@ export default function Product() {
                         src={isWish ? IconWishFill : IconWishStroke}
                         onClick={onToggleWish}
                     />
+                    <KakaoLogin></KakaoLogin>
                 </Header>
                 <ProductContainer>
                     <ProductImage
@@ -143,6 +143,9 @@ export default function Product() {
                         </div>
                     ))}
                 </MaterialContainer>
+                <CommentMobile>
+                    <Comment />
+                </CommentMobile>
                 <Footer>
                     1. 서비스 내 모든 성분 해석 정보는 세잎의 단순 ‘의견’입니다.{"\n"}
                     2. 성분 해석 정보는 제품 구매를 위한 참고 정보이며, 법적 책임을 지지 않습니다.
@@ -429,7 +432,10 @@ export default function Product() {
                     </div>
                 </div>
             </article>
-            <Comment />
+            <CommentBox>
+                <Comment />
+            </CommentBox>
+            
 
             <FooterPC>
                 {"\n"}
@@ -453,6 +459,14 @@ export default function Product() {
 const Container = styled.div`
     width: 100vw;
     height: 100vh;
+`;
+
+const CommentBox = styled.section`
+    min-width: 1200px;
+`;
+
+const CommentMobile = styled.section`
+    min-width: 10px;
 `;
 
 // header

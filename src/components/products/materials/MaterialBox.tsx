@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import IconArrowDown from '../../../assets/material/icon-arrow-down.png';
 import IconArrowRight from '../../../assets/material/icon-arrow-right.png';
-import mobile from '../../../recoil/mobile';
+import { mobile } from '../../../recoil/atom';
 type MaterialBoxType = {
     title: string,
     description: string
