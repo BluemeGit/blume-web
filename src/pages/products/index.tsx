@@ -26,6 +26,7 @@ import KakaoLogin from "../../components/common/KakaoLogin";
 import Insta_icon from "../../assets/common/instagram_icon.svg";
 // @ts-ignore
 import Youtube_icon from "../../assets/common/youtube_icon.svg";
+import home from "../../assets/common/icon_home.png";
 import Footer from "../../components/common/Footer";
 // @ts-ignore
 const { Kakao } = window;
@@ -87,21 +88,70 @@ export default function Products() {
       <Container>
         <MobileHeader />
         <SearchContainer>
-          <SearchIcon src={IconSearch} />
-          <Search
+          {/* <SearchIcon src={IconSearch} /> */}
+          {/* <Search
             {...query}
             placeholder={"사용하고 계신 제품 이름을 검색해보세요!"}
-          />
+          /> */}
+          <div
+            css={css`
+              position: absolute;
+              left: 50%;
+              transform: translateX(-40%);
+              width: 400px;
+            `}
+          >
+            <input
+              css={css`
+                text-align: center;
+                // padding: 0px 20px;
+                background: #f7f7f7;
+                border: 2px solid #1ed154;
+                border-radius: 30px;
+                width: 80%;
+                height: 40px;
+              `}
+              {...query}
+              placeholder={"알고 싶은 생리대의 이름을 검색하세요."}
+              onChange={onChangeInput}
+              value={debounceQuery}
+              onKeyDown={onClickSubmit}
+            />
+            <img
+              alt={"검색 아이콘"}
+              src={IconSearch}
+              css={css`
+                position: absolute;
+                top: 50%;
+                right: 105px;
+                width: 18.82px;
+                height: 18.82px;
+                transform: translateY(-50%);
+              `}
+            />
+          </div>
         </SearchContainer>
         <ToggleContainer>
+          <div />
           <ToggleButton selected={!isWish} onClick={() => setIsWish(false)}>
             전체 제품
           </ToggleButton>
           <ToggleButton selected={isWish} onClick={() => setIsWish(true)}>
             찜한 제품
           </ToggleButton>
+          <div />
         </ToggleContainer>
-        <ProductContainer>
+        <div
+          css={css`
+            display: grid;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            grid-template-columns: 180px 180px;
+            gap: 40px;
+            margin: 20px;
+          `}
+        >
           {productList &&
             ads &&
             productList.map((product: ProductType, id: number) => {
@@ -110,24 +160,47 @@ export default function Products() {
               }
               return (
                 <>
-                  <Product
-                    imageLink={product.imageUrl}
-                    id={product.id}
-                    title={product.trans_name}
-                    content={product.description}
-                  />
-                  {id % 4 === 3 && (
-                    <AdvertiseBox
+                  <div
+                    css={css`
+                      cursor: pointer;
+                    `}
+                    onClick={() => navigate(`/products/${product.id}`)}
+                  >
+                    <img
                       src={
-                        ads.data[Math.floor(id / 4) % ads.data.length].ImageURL
+                        "https://kr.object.ncloudstorage.com/blume/" +
+                        product.imageUrl
                       }
+                      alt={"상품이미지"}
+                      css={css`
+                        width: 180px;
+                        height: 180px;
+                        background: url(image.png);
+                        box-shadow: 0px 1px 30px 1px rgba(0, 0, 0, 0.1);
+                        border-radius: 3px;
+                      `}
                     />
-                  )}
+                    <p
+                      css={css`
+                        font-size: 10px;
+                      `}
+                    >
+                      {product.trans_name}
+                    </p>
+                    <p
+                      css={css`
+                        font-size: 11px;
+                        color: #999999;
+                      `}
+                    >
+                      {product.description}
+                    </p>
+                  </div>
                 </>
               );
             })}
-        </ProductContainer>
-        <Footer></Footer>
+          <Footer></Footer>
+        </div>
       </Container>
     );
   }
@@ -144,96 +217,120 @@ export default function Products() {
         css={css`
           display: flex;
           align-items: center;
+          justify-content: space-between;
           width: 1200px;
           margin: 90px 20px 90px 20px;
         `}
       >
-        <a href="https://www.youtube.com/channel/UCD97T1NyJfkbACBpEQ4rNUQ">
-          <img
-            src={Youtube_icon}
+        <div
+          css={css`
+            justify-content: center;
+          `}
+        >
+          <a href="https://www.youtube.com/channel/UCD97T1NyJfkbACBpEQ4rNUQ">
+            <img
+              src={Youtube_icon}
+              css={css`
+                position: relative;
+                right: 22px;
+                width: 25px;
+                height: 20px;
+                margin-left: 20px;
+                opacity: 0.5;
+              `}
+            />
+          </a>
+          <a href="https://www.instagram.com/3_leaf_official/">
+            <img
+              src={Insta_icon}
+              css={css`
+                position: relative;
+                top: -1px;
+                right: 22px;
+                width: 22px;
+                height: 18px;
+                margin-left: 20px;
+                opacity: 0.5;
+              `}
+            />
+          </a>
+          <a
+            href="/"
             css={css`
+              text-decoration-line: none;
               position: relative;
-              margin-left: 75px;
-              top: 70%;
-              right: 20px;
+              top: -5px;
+              right: 22px;
               width: 22px;
-              height: 26px;
+              height: 19px;
+              margin-left: 20px;
               opacity: 0.5;
+              color: black;
+              font-size: small;
+              font-weight: bold;
+              cursor: pointer;
+              padding: 10px; ;
             `}
-          />
-        </a>
-        <a href="https://www.instagram.com/3_leaf_official/">
-          <img
-            src={Insta_icon}
-            css={css`
-              position: relative;
-              margin-left: 10px;
-              top: 50%;
-              right: 20px;
-              width: 18.82px;
-              height: 18.82px;
-              opacity: 0.5;
-            `}
-          />
-        </a>
-
+          >
+            <span>세잎 소개</span>
+          </a>
+        </div>
         <a href="/products">
           <img
             src={IconLogo}
             alt="세잎로고"
             css={css`
               display: flex;
-              text-align: center;
               display: block;
-              margin: 0px auto;
               height: 150px;
-              margin-left: 340px;
+              margin-right: 100px;
             `}
           />
         </a>
-        {/* <a href="https://dullyshin.github.io/" height="5" width="10" target="_blank">
-	                <img src="\images\logo.png" alt="위의 이미지를 누르면 연결됩니다.">
-                <a> */}
-        <div
-          css={css`
-            text-align: center;
-            position: absolute;
-            margin-left: 370px;
-            margin-top: 150px;
-            width: 500px;
-          `}
-        >
-          <input
-            css={css`
-              text-align: center;
-              padding: 0px 20px;
-              background: #f7f7f7;
-              border: 2px solid #1ed154;
-              border-radius: 30px;
-              width: 80%;
-              height: 46px;
-            `}
-            {...query}
-            placeholder={"알고 싶은 생리대의 이름을 검색하세요."}
-            onChange={onChangeInput}
-            value={debounceQuery}
-            onKeyDown={onClickSubmit}
-          />
-          <img
-            alt={"검색 아이콘"}
-            src={IconSearch}
-            css={css`
-              position: absolute;
-              top: 50%;
-              right: 80px;
-              width: 18.82px;
-              height: 18.82px;
-              transform: translateY(-50%);
-            `}
-          />
-        </div>
         <KakaoLogin></KakaoLogin>
       </HeaderContainer>
+
+      {/* <a href="https://dullyshin.github.io/" height="5" width="10" target="_blank">
+	                <img src="\images\logo.png" alt="위의 이미지를 누르면 연결됩니다.">
+                <a> */}
+      <div
+        css={css`
+          text-align: center;
+          position: absolute;
+          margin-top: 200px;
+          width: 500px;
+        `}
+      >
+        <input
+          css={css`
+            text-align: center;
+            padding: 0px 20px;
+            background: #f7f7f7;
+            border: 2px solid #1ed154;
+            border-radius: 30px;
+            width: 80%;
+            height: 46px;
+          `}
+          {...query}
+          placeholder={"알고 싶은 생리대의 이름을 검색하세요."}
+          onChange={onChangeInput}
+          value={debounceQuery}
+          onKeyDown={onClickSubmit}
+        />
+        <img
+          alt={"검색 아이콘"}
+          src={IconSearch}
+          css={css`
+            position: absolute;
+            top: 50%;
+            right: 80px;
+            width: 18.82px;
+            height: 18.82px;
+            transform: translateY(-50%);
+          `}
+        />
+      </div>
+
       <section
         css={css`
           width: 1060px;
@@ -329,7 +426,8 @@ const HeaderContainer = styled.div`
 `;
 
 const SearchContainer = styled.div`
-  position: relative;
+  margin-top: 10px;
+  margin-bottom: 80px;
 `;
 const Search = styled.input`
   width: calc(100% - 2px);
@@ -345,6 +443,8 @@ const SearchIcon = styled.img`
 `;
 
 const ToggleContainer = styled.div`
+  display: flex;
+  justify-content: center;
   border-top: 1px solid #f1f1f5;
   width: 100vw;
   height: 40px;
@@ -353,11 +453,12 @@ const ToggleButton = styled.p<{ selected?: boolean }>`
   margin: 0;
   line-height: 36px;
   display: inline-block;
-  width: 50vw;
+  width: 20vw;
   font-size: 13px;
   text-align: center;
   /* font-weight: ${(props) => (props.selected ? "bold" : "400")}; */
-  color: ${(props) => (props.selected ? "#333333" : "#F1F1F5")};
+  // color: ${(props) => (props.selected ? "#333333" : "#FFFFFFF")};
+  color: gray;
   border-bottom: 2px solid
     ${(props) => (props.selected ? "#1ED154" : "#F1F1F5")};
 `;
