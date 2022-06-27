@@ -79,7 +79,7 @@ export default function Product() {
         }
     }, [data, materials]);
 
-    if (error) return <div>erro!!!!!!!!!!!!!!!!!!!!r!</div>;
+    if (error) return <div>error!!!</div>;
     if (!data) return <div>loading...</div>;
 
     const onToggleWish = () => {
@@ -127,7 +127,6 @@ export default function Product() {
                         src={isWish ? IconWishFill : IconWishStroke}
                         onClick={onToggleWish}
                     />
-                    <KakaoLogin></KakaoLogin>
                 </Header>
                 <ProductContainer>
                     <ProductImage
@@ -172,14 +171,13 @@ export default function Product() {
                     {"\n"}제품 구매 전 제조판매업자가 표기한 전성분 표를 한 번
                     더 확인하시길 권장합니다.{"\n"}
                     4. 세잎의 성분 해석 정보를 허가 없이 상업적으로 활용할 경우,
-                    법적 조치를 받을 수 있습니다.{"\n"}
+                    {"\n"}법적 조치를 받을 수 있습니다.{"\n"}
                 </Footer>
                 <div
                     style={{
-                        position: "fixed",
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "center",
+                        justifyContent: "space-around",
                         backgroundColor: "#1ED154",
                         height: "3rem",
                         bottom: "0rem",
@@ -194,7 +192,17 @@ export default function Product() {
                         }}
                         href={`https://search.shopping.naver.com/search/all?query=${data.data.trans_name}`}
                     >
-                        최저가 검색
+                        네이버 최저가
+                    </a>
+                    <a
+                        style={{
+                            color: "white",
+                            fontWeight: "bold",
+                            textDecoration: "none",
+                        }}
+                        href={`http://search.danawa.com/dsearch.php?k1=${data.data.trans_name}`}
+                    >
+                        다나와 최저가
                     </a>
                 </div>
 
@@ -215,96 +223,119 @@ export default function Product() {
                 css={css`
                     display: flex;
                     align-items: center;
+                    justify-content: space-between;
                     width: 1200px;
                     margin: 90px 20px 90px 20px;
                 `}
             >
-                <a href="https://www.youtube.com/channel/UCD97T1NyJfkbACBpEQ4rNUQ">
-                    <img
-                        src={Youtube_icon}
+                <div
+                    css={css`
+                        justify-content: center;
+                    `}
+                >
+                    <a href="https://www.youtube.com/channel/UCD97T1NyJfkbACBpEQ4rNUQ">
+                        <img
+                            src={Youtube_icon}
+                            css={css`
+                                position: relative;
+                                right: 22px;
+                                width: 25px;
+                                height: 20px;
+                                margin-left: 20px;
+                                opacity: 0.5;
+                            `}
+                        />
+                    </a>
+                    <a href="https://www.instagram.com/3_leaf_official/">
+                        <img
+                            src={Insta_icon}
+                            css={css`
+                                position: relative;
+                                top: -1px;
+                                right: 22px;
+                                width: 22px;
+                                height: 18px;
+                                margin-left: 20px;
+                                opacity: 0.5;
+                            `}
+                        />
+                    </a>
+                    <a
+                        href="/"
                         css={css`
+                            text-decoration-line: none;
                             position: relative;
-                            margin-left: 75px;
-                            top: 70%;
-                            right: 20px;
+                            top: -5px;
+                            right: 22px;
                             width: 22px;
-                            height: 26px;
+                            height: 19px;
+                            margin-left: 20px;
                             opacity: 0.5;
+                            color: black;
+                            font-size: small;
+                            font-weight: bold;
+                            cursor: pointer;
+                            padding: 10px; ;
                         `}
-                    />
-                </a>
-                <a href="https://www.instagram.com/3_leaf_official/">
-                    <img
-                        src={Insta_icon}
-                        css={css`
-                            position: relative;
-                            margin-left: 10px;
-                            top: 50%;
-                            right: 20px;
-                            width: 18.82px;
-                            height: 18.82px;
-                            opacity: 0.5;
-                        `}
-                    />
-                </a>
-
+                    >
+                        <span>세잎 소개</span>
+                    </a>
+                </div>
                 <a href="/products">
                     <img
                         src={IconLogo}
                         alt="세잎로고"
                         css={css`
                             display: flex;
-                            text-align: center;
                             display: block;
-                            margin: 0px auto;
                             height: 150px;
-                            margin-left: 340px;
+                            margin-right: 100px;
                         `}
                     />
                 </a>
-                {/* <a href="https://dullyshin.github.io/" height="5" width="10" target="_blank">
-	                <img src="\images\logo.png" alt="위의 이미지를 누르면 연결됩니다.">
-                <a> */}
-                <div
-                    css={css`
-                        text-align: center;
-                        position: absolute;
-                        margin-left: 370px;
-                        margin-top: 150px;
-                        width: 500px;
-                    `}
-                >
-                    <input
-                        css={css`
-                            text-align: center;
-                            padding: 0px 20px;
-                            background: #f7f7f7;
-                            border: 2px solid #1ed154;
-                            border-radius: 30px;
-                            width: 80%;
-                            height: 46px;
-                        `}
-                        {...query}
-                        placeholder={"알고 싶은 생리대의 이름을 검색하세요."}
-                        onChange={onChangeInput}
-                        value={debounceQuery}
-                        onKeyDown={onClickSubmit}
-                    />
-                    <img
-                        alt={"검색 아이콘"}
-                        src={IconSearch}
-                        css={css`
-                            position: absolute;
-                            top: 50%;
-                            right: 80px;
-                            width: 18.82px;
-                            height: 18.82px;
-                            transform: translateY(-50%);
-                        `}
-                    />
-                </div>
                 <KakaoLogin></KakaoLogin>
             </HeaderContainer>
+            {/* <a href="https://dullyshin.github.io/" height="5" width="10" target="_blank">
+	                <img src="\images\logo.png" alt="위의 이미지를 누르면 연결됩니다.">
+                <a> */}
+            <div
+                css={css`
+                    text-align: center;
+                    position: absolute;
+                    margin-top: 200px;
+                    width: 500px;
+                `}
+            >
+                <input
+                    css={css`
+                        text-align: center;
+                        padding: 0px 20px;
+                        background: #f7f7f7;
+                        border: 2px solid #1ed154;
+                        border-radius: 30px;
+                        width: 80%;
+                        height: 46px;
+                    `}
+                    {...query}
+                    placeholder={"알고 싶은 생리대의 이름을 검색하세요."}
+                    onChange={onChangeInput}
+                    value={debounceQuery}
+                    onKeyDown={onClickSubmit}
+                />
+                <img
+                    alt={"검색 아이콘"}
+                    src={IconSearch}
+                    css={css`
+                        position: absolute;
+                        top: 50%;
+                        right: 80px;
+                        width: 18.82px;
+                        height: 18.82px;
+                        transform: translateY(-50%);
+                    `}
+                />
+            </div>
+
             <article
                 css={css`
                     display: flex;
@@ -401,6 +432,7 @@ export default function Product() {
                             flexDirection: "row-reverse",
                             backgroundColor: "1ED154",
                             marginTop: "1rem",
+                            marginBottom: "5rem",
                         }}
                     >
                         <a
@@ -471,7 +503,6 @@ export default function Product() {
             <CommentBox>
                 <Comment />
             </CommentBox>
-
             <FooterPC>
                 {"\n"}
                 {"\n"}
@@ -499,6 +530,9 @@ const Container = styled.div`
 `;
 
 const CommentBox = styled.section`
+    // position: relative;
+    padding: 5rem;
+    border-top: 1px solid #e7e7e7;
     min-width: 1200px;
 `;
 
@@ -563,7 +597,7 @@ const MaterialMenu = styled.p`
 const Footer = styled.div`
     padding: 20px;
     white-space: pre;
-    font-size: 12px;
+    font-size: 10px;
     color: #666666;
 `;
 const FooterPC = styled.div`
