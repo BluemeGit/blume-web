@@ -5,7 +5,6 @@ import { css, jsx } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import Header from "../../components/common/Header";
-import ImageSeacrh from "../../assets/home/image-search.png";
 import IconMae from "../../assets/common/icon_maee.svg";
 import ProductBox from "../../components/products/ProductBox";
 import Footer from "../../components/common/Footer";
