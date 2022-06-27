@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 import React, { useEffect, useState } from "react";
+import ReactPlayer from "react-player/youtube";
 import {
     Navigate,
     useLocation,
@@ -158,6 +159,16 @@ export default function Product() {
                         )
                     )}
                 </MaterialContainer>
+                {/* <PlayerContainer>
+                    <ReactPlayer
+                        width="100%"
+                        height="100%"
+                        data-aos="fade-up"
+                        url={"https://www.youtube.com/watch?v=yxGBq7fr9fI"}
+                        controls={false}
+                    />
+                </PlayerContainer> */}
+
                 <CommentMobile>
                     <Comment />
                 </CommentMobile>
@@ -528,7 +539,14 @@ const Container = styled.div`
     width: 100vw;
     height: 100vh;
 `;
-
+const PlayerContainer = styled.div`
+    position: relative;
+    margin: 20px;
+    width: calc(100vw - 40px);
+    height: calc(56.25vw - 22.5px);
+    border-radius: 20px;
+    overflow: hidden;
+`;
 const CommentBox = styled.section`
     // position: relative;
     padding: 5rem;

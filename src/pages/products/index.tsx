@@ -97,8 +97,7 @@ export default function Products() {
                         css={css`
                             position: absolute;
                             left: 50%;
-                            transform: translateX(-40%);
-                            width: 400px;
+                            transform: translateX(-50%);
                         `}
                     >
                         <input
@@ -108,7 +107,7 @@ export default function Products() {
                                 background: #f7f7f7;
                                 border: 2px solid #1ed154;
                                 border-radius: 30px;
-                                width: 80%;
+                                width: 300px;
                                 height: 40px;
                             `}
                             {...query}
@@ -125,7 +124,7 @@ export default function Products() {
                             css={css`
                                 position: absolute;
                                 top: 50%;
-                                right: 105px;
+                                right: 7%;
                                 width: 18.82px;
                                 height: 18.82px;
                                 transform: translateY(-50%);
@@ -155,7 +154,7 @@ export default function Products() {
                         position: absolute;
                         left: 50%;
                         transform: translateX(-50%);
-                        grid-template-columns: 180px 180px;
+                        grid-template-columns: 170px 170px;
                         gap: 20px;
                         margin-top: 20px;
                     `}
@@ -186,8 +185,8 @@ export default function Products() {
                                             }
                                             alt={"상품이미지"}
                                             css={css`
-                                                width: 180px;
-                                                height: 180px;
+                                                width: 170px;
+                                                height: 170px;
                                                 background: url(image.png);
                                                 box-shadow: 0px 1px 30px 1px
                                                     rgba(0, 0, 0, 0.1);
@@ -196,7 +195,8 @@ export default function Products() {
                                         />
                                         <p
                                             css={css`
-                                                font-size: 10px;
+                                                font-size: 12px;
+                                                font-weight: bold;
                                             `}
                                         >
                                             {product.trans_name}

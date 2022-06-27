@@ -195,6 +195,7 @@ const CommentSquare = styled.input`
     width: 95%;
     height: 3rem;
     border-radius: 10px;
+    color: gray;
     transform: translateX(-50%);
 `;
 const SubmitButton = styled.div`
